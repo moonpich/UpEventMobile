@@ -8,9 +8,9 @@ export const AuthProvider = ({ children }) => {
   const login = (username, password) => {
     const formattedUsername = username.toLowerCase().trim();
 
-    if (formattedUsername === "admin" && password === "admin123") {
+    if (formattedUsername === "checker" && password === "checker") {
       setUser({ role: "admin" });
-    } else if (formattedUsername === "user" && password === "user123") {
+    } else if (formattedUsername === "user" && password === "user") {
       setUser({ role: "user" });
     }
   };

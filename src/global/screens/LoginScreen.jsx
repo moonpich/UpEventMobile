@@ -32,6 +32,7 @@ const LoginScreen = () => {
           <TextInput
             style={styles.input}
             placeholder="Ingrese su correo"
+            keyboardType="email-address"
             autoCapitalize="none"
             placeholderTextColor={"rgba(242, 242, 242, .2)"}
             onChangeText={(text) => setUsername(text.trim().toLowerCase())}
