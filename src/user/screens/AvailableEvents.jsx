@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  SafeAreaView,
-  Image,
-  View,
-  Text,
-  FlatList,
-} from "react-native";
+import { StyleSheet, SafeAreaView, Image, View, Text, FlatList } from "react-native";
 import { Card } from "../../global/components/Card";
 
 const logoUp = () => {
@@ -16,11 +9,9 @@ const logoUp = () => {
 const eventos = [
   {
     id: 1,
-    nombre:
-      "Expo. Globos Aerostáticos pipipipipipipiiipipipiipipipippiipipppipipiippipippipippippipippipipipipipippppipipippipipipippipipippipipipipip",
+    nombre: "Expo. Globos Aerostáticos pipipipipipipiiipipipiipipipippiipipppipipiippipippipippippipippipipipipipippppipipippipipipippipipippipipipipip",
     disponibles: 200,
-    imagen:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPE7q_71BoPkj-DqJuiekoyns7n4cojgCmxg&s",
+    imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPE7q_71BoPkj-DqJuiekoyns7n4cojgCmxg&s",
   },
   {
     id: 2,
