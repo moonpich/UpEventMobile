@@ -1,34 +1,20 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 import { SaveEvents } from "../screens/SaveEvents";
 import { SearchEvents } from "../screens/SearchEvents";
 import { Profile } from "../screens/ProfileUser";
 import { Event } from "../screens/Event";
 import { AvailableEvents } from "../screens/AvailableEvents";
 import Access from "../screens/Access";
-import {
-  CalendarClock,
-  CalendarHeart,
-  CalendarSearch,
-  CircleUserRound,
-} from "lucide-react-native";
+import { SavedEvent } from "../screens/SavedEvent";
+import {CalendarClock, CalendarHeart, CalendarSearch, CircleUserRound} from "lucide-react-native";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 function AvailableEventsStack() {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: true,
-        headerTitle: "",
-        headerStyle: {
-          backgroundColor: "#000000",
-        },
-        headerTintColor: "#FFFFFF",
-      }}
-    >
+    <Stack.Navigator screenOptions={{headerShown: true, headerTitle: "", headerStyle: { backgroundColor: "#000000"}, headerTintColor: "#FFFFFF"}}>
       <Stack.Screen name="AvailableEventsScreen" component={AvailableEvents} />
       <Stack.Screen name="Event" component={Event} />
     </Stack.Navigator>
@@ -37,18 +23,19 @@ function AvailableEventsStack() {
 
 function SaveEventsStack() {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: true,
-        headerTitle: "",
-        headerStyle: {
-          backgroundColor: "#000000",
-        },
-        headerTintColor: "#FFFFFF",
-      }}
-    >
+    <Stack.Navigator screenOptions={{headerShown: true, headerTitle: "", headerStyle: {backgroundColor: "#000000"}, headerTintColor: "#FFFFFF"}}>
       <Stack.Screen name="SaveEventsScreen" component={SaveEvents} />
+      <Stack.Screen name="SavedEvent" component={SavedEvent} />
       <Stack.Screen name="Access" component={Access} />
+    </Stack.Navigator>
+  );
+}
+
+function SearchEventsStack() {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: true, headerTitle: "", headerStyle: {backgroundColor: "#000000"}, headerTintColor: "#FFFFFF"}}>
+      <Stack.Screen name="SearchEvents" component={SearchEvents} />
+      <Stack.Screen name="Event" component={Event} />
     </Stack.Navigator>
   );
 }
@@ -57,11 +44,11 @@ export const UserNavigator = () => (
     screenOptions={({ route }) => ({
       tabBarIcon: ({ color, size }) => {
         let icon;
-        if (route.name === "AvailableE") {
+        if (route.name === "AvailableEvents") {
           icon = <CalendarClock size={size} color={color} />;
-        } else if (route.name === "SaveE") {
+        } else if (route.name === "SaveEvents") {
           icon = <CalendarHeart size={size} color={color} />;
-        } else if (route.name === "SearchE") {
+        } else if (route.name === "SearchEvents") {
           icon = <CalendarSearch size={size} color={color} />;
         } else if (route.name === "Profile") {
           icon = <CircleUserRound size={size} color={color} />;
@@ -75,9 +62,9 @@ export const UserNavigator = () => (
       tabBarStyle: { backgroundColor: "#0e0e0e" },
     })}
   >
-    <Tab.Screen name="AvailableE" component={AvailableEventsStack} />
-    <Tab.Screen name="SaveE" component={SaveEventsStack} />
-    <Tab.Screen name="SearchE" component={SearchEvents} />
+    <Tab.Screen name="AvailableEvents" component={AvailableEventsStack} />
+    <Tab.Screen name="SaveEvents" component={SaveEventsStack} />
+    <Tab.Screen name="SearchEvents" component={SearchEventsStack} />
     <Tab.Screen name="Profile" component={Profile} />
   </Tab.Navigator>
 );

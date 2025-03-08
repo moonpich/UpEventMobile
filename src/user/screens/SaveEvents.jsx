@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  StyleSheet,
-  SafeAreaView,
-  Image,
-  View,
-  Text,
-  FlatList,
-} from "react-native";
+import { StyleSheet, SafeAreaView, Image, View, Text, FlatList, TouchableHighlight} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { EventoCard } from "../components/Card";
 const logoUp = () => {
   return require("../../../assets/splash.png");
@@ -15,20 +9,29 @@ const logoUp = () => {
 const eventos = [
   {
     id: 1,
-    nombre: "Expo. Globos Aerostáticos",
+    nombre: "Expo. Globos Aerostáticos ppppppppppppppppppppppppp",
     disponibles: 200,
-    imagen:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPE7q_71BoPkj-DqJuiekoyns7n4cojgCmxg&s",
+    imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPE7q_71BoPkj-DqJuiekoyns7n4cojgCmxg&s",
+    talleres: [
+      {id:1, nombre: "Fotografía aérea", cupo: 20 },
+      {id:2, nombre: "Historia de los globos aerostáticos", cupo: 15 }
+    ]
   },
   {
     id: 2,
     nombre: "Expo. Luces Nocturnas",
     disponibles: 2,
     imagen: "url_de_la_imagen_luces",
+    talleres: [
+      { id:1, nombre: "Iluminación artística", cupo: 10 },
+      { id:2, nombre: "Técnicas de fotografía nocturna", cupo: 12 }
+    ]
   },
 ];
 
 export function SaveEvents() {
+  const navigation = useNavigation(); 
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -40,11 +43,13 @@ export function SaveEvents() {
           data={eventos}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <EventoCard
-              nombre={item.nombre}
-              disponibles={item.disponibles}
-              imagen={item.imagen}
-            />
+            <TouchableHighlight underlayColor="#333333" onPress={() => navigation.navigate("SavedEvent", { nombre: item.nombre, disponibles: item.disponibles, talleres: item.talleres, imagen:item.imagen })}>
+              <EventoCard
+                nombre={item.nombre}
+                disponibles={item.disponibles}
+                imagen={item.imagen}
+              />
+            </TouchableHighlight>
           )}
           numColumns={2}
         />
@@ -68,7 +73,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   text: {
-    fontSize: 16,
+    fontSize: 22,
     textAlign: "center",
     color: "#B3B3B3",
   },

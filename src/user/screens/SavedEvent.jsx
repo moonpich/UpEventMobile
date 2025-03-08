@@ -1,14 +1,16 @@
 import React from "react";
-import { StyleSheet, Image, View, Text, FlatList } from "react-native";
+import { StyleSheet, Image, View, Text, FlatList, TouchableHighlight } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { CalendarPlus } from "lucide-react-native";
+import { CalendarHeart } from "lucide-react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const logoUp = () => {
   return require("../../../assets/splash.png");
 };
 
-export function Event({ route }) {
+export function SavedEvent({ route }) {
   const { nombre, disponibles, talleres, imagen } = route.params;
+  const navigation = useNavigation(); 
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -27,15 +29,17 @@ export function Event({ route }) {
             keyExtractor={(item) => String(item.id)}
             style={{width:"100%"}}
             renderItem={({ item }) => (
-              <View style={styles.talleres}>
+            <TouchableHighlight onPress={() => navigation.navigate("Access", { nombre: item.nombre, disponibles: item.disponibles, talleres: item.talleres, imagen:item.imagen })}>
+                <View style={styles.talleres}>
                 <View style={{flex:1}}>
                   <Text style={styles.tallerText}>{item.nombre}</Text>
                   <Text style={styles.tallerCupo}>
                     Disponibilidad: {item.cupo}
                   </Text>
                 </View>
-                <CalendarPlus color={"#F7EBF9"} size={32} style={styles.icon} />
+                <CalendarHeart color={"#F7EBF9"} size={32} style={styles.icon} />
               </View>
+            </TouchableHighlight>
             )}
           />
       </View>

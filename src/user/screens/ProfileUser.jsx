@@ -1,13 +1,6 @@
 import React from "react";
-
-import {
-  StyleSheet,
-  SafeAreaView,
-  Image,
-  View,
-  Text,
-  TextInput,
-} from "react-native";
+import { StyleSheet, SafeAreaView, Image, View, Text, TextInput } from "react-native";
+import {CircleUserRound} from "lucide-react-native";
 
 const logoUp = () => {
   return require("../../../assets/splash.png");
@@ -19,107 +12,62 @@ export const Profile = () => {
       <View style={styles.container}>
         <Image style={styles.logo} source={logoUp()} />
       </View>
-
-      <View style={styles.profileContainer}>
-        <View style={styles.profileImage} />
-
+      <View style={styles.containerProfile} >
+        <View style={{justifyContent:'center', alignItems:'center', height:195}}>
+          <CircleUserRound size={195} color={"#B3B3B3"} strokeWidth={0.5}/>
+        </View>
         <Text style={styles.title}>Mi perfil</Text>
-
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Correo</Text>
-
-          <TextInput
-            style={styles.input}
-            value="melissapineda@gmail.com"
-            editable={false}
-          />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Contraseña</Text>
-
-          <TextInput
-            style={styles.input}
-            value="********"
-            secureTextEntry
-            editable={false}
-          />
-        </View>
+        <Text style={styles.text}>Correo</Text>
+        <TextInput style={styles.input}
+          value="melissapineda@gmail.com"
+        />
+        <Text style={styles.text}>Contraseña</Text>
+        <TextInput style={styles.input}
+          value="********"
+          secureTextEntry />
       </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  input:{
+    margin:10,
+    borderColor:"#B3B3B3",
+    borderBottomWidth: 1,
+    padding:5, 
+    fontSize:16,
+    color:"#b3b3b3"
+    },
+  containerProfile: {
+    flex: 1,
+    backgroundColor: "#0E0E0E",
+    borderRadius: 20,
+    margin: 20,
+    height: 800
+  },
   safeArea: {
     flex: 1,
-
     padding: 25,
-
     backgroundColor: "#000000",
   },
-
   container: {
     alignItems: "center",
   },
-
   logo: {
     width: 145,
-
     height: 35,
-
     margin: 10,
   },
-
-  profileContainer: {
-    alignItems: "center",
-
-    marginTop: 20,
+  text: {
+    fontSize: 16,
+    color: "#735973",
+    margin:10
   },
-
-  profileImage: {
-    width: 100,
-
-    height: 100,
-
-    borderRadius: 50,
-
-    borderWidth: 2,
-
-    borderColor: "#00FFFF",
-
-    marginBottom: 10,
-  },
-
   title: {
     fontSize: 22,
-
-    color: "#FFFFFF",
-
-    marginBottom: 20,
-  },
-
-  inputContainer: {
-    width: "100%",
-
-    marginBottom: 15,
-  },
-
-  label: {
-    fontSize: 14,
-
     color: "#B3B3B3",
-
-    marginBottom: 5,
-  },
-
-  input: {
-    backgroundColor: "#0e0e0e",
-
-    color: "#FFFFFF",
-
-    padding: 10,
-
-    borderRadius: 8,
-  },
+    textAlign:'center',
+    margin:10
+  }
 });
