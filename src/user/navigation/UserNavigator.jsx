@@ -8,9 +8,11 @@ import { AvailableEvents } from "../screens/AvailableEvents";
 import Access from "../screens/Access";
 import { SavedEvent } from "../screens/SavedEvent";
 import {CalendarClock, CalendarHeart, CalendarSearch, CircleUserRound} from "lucide-react-native";
+import { useTheme } from "../../global/context/ThemeContext";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
 
 function AvailableEventsStack() {
   return (
@@ -39,7 +41,10 @@ function SearchEventsStack() {
     </Stack.Navigator>
   );
 }
-export const UserNavigator = () => (
+export const UserNavigator = () => {
+  const { theme } = useTheme(); 
+
+  return( 
   <Tab.Navigator
     screenOptions={({ route }) => ({
       tabBarIcon: ({ color, size }) => {
@@ -57,9 +62,9 @@ export const UserNavigator = () => (
       },
       headerShown: false,
       tabBarShowLabel: false,
-      tabBarActiveTintColor: "#B23BC4",
-      tabBarInactiveTintColor: "#FFFFFF",
-      tabBarStyle: { backgroundColor: "#0e0e0e" },
+      tabBarActiveTintColor: theme.navIconColorActive,
+      tabBarInactiveTintColor: theme.navIconColorInactive,
+      tabBarStyle: { backgroundColor: theme.tabBarStyle},
     })}
   >
     <Tab.Screen name="AvailableEvents" component={AvailableEventsStack} />
@@ -67,4 +72,4 @@ export const UserNavigator = () => (
     <Tab.Screen name="SearchEvents" component={SearchEventsStack} />
     <Tab.Screen name="Profile" component={Profile} />
   </Tab.Navigator>
-);
+);};

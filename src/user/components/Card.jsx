@@ -1,7 +1,33 @@
 import React from "react";
 import { View, Text, Image, StyleSheet} from "react-native";
+import { useTheme } from "../../global/context/ThemeContext";
 
 export function EventoCard({ nombre, disponibles, talleres,  imagen }) {
+  const { theme, toggleTheme } = useTheme();
+  
+const styles = StyleSheet.create({
+  imgCard: {
+    width: 122,
+    height: 64,
+    borderRadius: 20,
+  },
+  disCard: {
+    color: "#999999",
+  },
+  nameCard: {
+    color: theme.textColor,
+  },
+  card: {
+    fontSize: 12,
+    backgroundColor: theme.tabBarStyle,
+    borderRadius: 12,
+    width: 160,
+    height: 163,
+    margin: 9,
+    padding: 8,
+  },
+});
+
 
   return (
       <View style={styles.card}>
@@ -15,26 +41,3 @@ export function EventoCard({ nombre, disponibles, talleres,  imagen }) {
       </View>
   );
 }
-
-const styles = StyleSheet.create({
-  imgCard: {
-    width: 122,
-    height: 64,
-    borderRadius: 20,
-  },
-  disCard: {
-    color: "#999999",
-  },
-  nameCard: {
-    color: "#FFFFFF",
-  },
-  card: {
-    fontSize: 12,
-    backgroundColor: "#0E0E0E",
-    borderRadius: 12,
-    width: 160,
-    height: 163,
-    margin: 9,
-    padding: 8,
-  },
-});
