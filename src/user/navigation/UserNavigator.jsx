@@ -15,8 +15,9 @@ const Stack = createNativeStackNavigator();
 
 
 function AvailableEventsStack() {
+  const { theme } = useTheme(); 
   return (
-    <Stack.Navigator screenOptions={{headerShown: true, headerTitle: "", headerStyle: { backgroundColor: "#000000"}, headerTintColor: "#FFFFFF"}}>
+    <Stack.Navigator screenOptions={{headerShown: true, headerTitle: "", headerTransparent: true, headerTintColor: theme.textColor}}>
       <Stack.Screen name="AvailableEventsScreen" component={AvailableEvents} />
       <Stack.Screen name="Event" component={Event} />
     </Stack.Navigator>
@@ -24,8 +25,9 @@ function AvailableEventsStack() {
 }
 
 function SaveEventsStack() {
+  const { theme } = useTheme(); 
   return (
-    <Stack.Navigator screenOptions={{headerShown: true, headerTitle: "", headerStyle: {backgroundColor: "#000000"}, headerTintColor: "#FFFFFF"}}>
+    <Stack.Navigator screenOptions={{headerShown: true, headerTitle: "", headerStyle: {backgroundColor:theme.background}, headerTintColor: theme.textColor}}>
       <Stack.Screen name="SaveEventsScreen" component={SaveEvents} />
       <Stack.Screen name="SavedEvent" component={SavedEvent} />
       <Stack.Screen name="Access" component={Access} />
@@ -34,6 +36,7 @@ function SaveEventsStack() {
 }
 
 function SearchEventsStack() {
+  const { theme } = useTheme(); 
   return (
     <Stack.Navigator screenOptions={{headerShown: true, headerTitle: "", headerStyle: {backgroundColor: "#000000"}, headerTintColor: "#FFFFFF"}}>
       <Stack.Screen name="SearchEvents" component={SearchEvents} />

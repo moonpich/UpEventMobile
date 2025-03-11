@@ -85,8 +85,6 @@ export const Profile = () => {
         <TextInput style={styles.input}
           value="********"
           secureTextEntry />
-        <View style={styles.containerButton}>
-        </View>
       </View>
     </SafeAreaView>
   );
