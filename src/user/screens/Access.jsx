@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Image, View, Text, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { CalendarPlus } from "lucide-react-native";
+import QRCode from "react-native-qrcode-svg";
 
 const logoUp = () => {
   return require("../../../assets/splash.png");
@@ -9,6 +9,7 @@ const logoUp = () => {
 
 export default function Access({ route }) {
   const { nombre, disponibles, talleres, imagen } = route.params;
+  const qrData = `Evento: ${nombre}, Rol:usuario`;
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -29,16 +30,10 @@ export default function Access({ route }) {
             <View
               style={{
                 backgroundColor: "#333333",
-                borderRadius: 12,
-                width: 340,
-                height: 340,
+                borderRadius: 12
               }}
             >
-              <Text
-                style={{ fontSize: 35, textAlign: "center", color: "#b3b3b3" }}
-              >
-                QR
-              </Text>
+              <QRCode value={qrData} size={200} />
             </View>
           </View>
         </View>

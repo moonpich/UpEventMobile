@@ -2,32 +2,11 @@ import React from "react";
 import { StyleSheet, SafeAreaView, Image, View, Text, FlatList, TouchableHighlight} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { EventoCard } from "../components/Card";
+import eventos from "../../global/data/data";
+
 const logoUp = () => {
   return require("../../../assets/splash.png");
 };
-
-const eventos = [
-  {
-    id: 1,
-    nombre: "Expo. Globos Aerostáticos ppppppppppppppppppppppppp",
-    disponibles: 200,
-    imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPE7q_71BoPkj-DqJuiekoyns7n4cojgCmxg&s",
-    talleres: [
-      {id:1, nombre: "Fotografía aérea", cupo: 20 },
-      {id:2, nombre: "Historia de los globos aerostáticos", cupo: 15 }
-    ]
-  },
-  {
-    id: 2,
-    nombre: "Expo. Luces Nocturnas",
-    disponibles: 2,
-    imagen: "url_de_la_imagen_luces",
-    talleres: [
-      { id:1, nombre: "Iluminación artística", cupo: 10 },
-      { id:2, nombre: "Técnicas de fotografía nocturna", cupo: 12 }
-    ]
-  },
-];
 
 export function SaveEvents() {
   const navigation = useNavigation(); 
