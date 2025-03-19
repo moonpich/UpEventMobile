@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 
-const logo = () => {
+const logoUp = () => {
   return require("../../../assets/splash.png");
 };
 const LoginScreen = () => {
@@ -20,7 +20,7 @@ const LoginScreen = () => {
   return (
     <View style={styles.container}>
       <View>
-        <Image source={logo()} />
+        <Image style={styles.logo} source={logoUp()} />
       </View>
 
       <View style={styles.loginContainer}>

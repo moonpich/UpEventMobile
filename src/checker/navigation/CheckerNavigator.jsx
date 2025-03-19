@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { CheckerAvailableEvents } from "../screens/CheckerAvailableEvents.jsx";
 import { CheckerSearchEvents } from "../screens/CheckerSearchEvents.jsx";
+import { CheckerProfile } from "../screens/CheckerProfile.jsx";
 
 import {
   CalendarDays,
@@ -36,5 +37,6 @@ export const CheckerNavigator = () => (
       component={CheckerAvailableEvents}
     />
     <Tab.Screen name="CheckerSearchEvents" component={CheckerSearchEvents} />
+    <Tab.Screen name="CheckerProfile" component={CheckerProfile} />
   </Tab.Navigator>
 );

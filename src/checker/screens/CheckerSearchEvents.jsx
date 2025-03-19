@@ -12,6 +12,7 @@ import { Searchbar } from "react-native-paper";
 
 const logoUp = () => {
   return require("../../../assets/splash.png");
+  git;
 };
 
 const eventos = [
@@ -20,8 +21,10 @@ const eventos = [
     nombre:
       "Expo. Globos Aerostáticos pipipipipipipiiipipipiipipipippiipipppipipiippipippipippippipippipipipipipippppipipippipipipippipipippipipipipip",
     disponibles: 200,
-    imagen:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPE7q_71BoPkj-DqJuiekoyns7n4cojgCmxg&s",
+    url: {
+      imagen:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPE7q_71BoPkj-DqJuiekoyns7n4cojgCmxg&",
+    },
   },
   {
     id: 2,
@@ -92,6 +95,7 @@ export const CheckerSearchEvents = () => {
         placeholder="Buscar eventos"
         iconColor="#b3b3b3"
       />
+
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <FlatList
           data={eventos}
