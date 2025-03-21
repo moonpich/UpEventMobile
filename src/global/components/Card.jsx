@@ -9,7 +9,7 @@ export const Card = ({ nombre, disponibles, imagen }) => {
       </Text>
       <Text style={styles.disCard}>Disponibles: {disponibles}</Text>
       <View style={{ alignItems: "center", padding: 10 }}>
-        <Image style={styles.imgCard} source={imagen} />
+        <Image style={styles.imgCard} source={{uri: imagen}} />
       </View>
     </View>
   );

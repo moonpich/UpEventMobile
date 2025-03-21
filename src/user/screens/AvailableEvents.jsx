@@ -1,24 +1,23 @@
 import React from "react";
 import { TouchableHighlight, StyleSheet, SafeAreaView, Image, View, Text, FlatList, TouchableOpacity } from "react-native";
-import { Card } from "../../global/components/Card";
+import { EventoCard } from "../components/Card";
 import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../../global/context/ThemeContext";
 import Icon from 'react-native-vector-icons/Ionicons';
 import eventos from "../../global/data/data";
-
 
 const logoUp = () => {
   return require("../../../assets/splash.png");
 };
 
 export const AvailableEvents = () => {
-  const navigation = useNavigation(); 
+  const navigation = useNavigation();
   const { theme, toggleTheme } = useTheme();
 
   const styles = StyleSheet.create({
     containerButton: {
-      alignItems:'flex-end',
-      marginTop:20
+      alignItems: 'flex-end',
+      marginTop: 20
     },
     safeArea: {
       flex: 1,
@@ -39,11 +38,11 @@ export const AvailableEvents = () => {
       color: "#B3B3B3",
     },
   });
-  
+
 
   return (
     <SafeAreaView style={styles.safeArea}>
-       <View style={styles.containerButton}>
+      <View style={styles.containerButton}>
         <TouchableOpacity onPress={toggleTheme}>
           <Icon name={theme.background === "#000000" ? "sunny" : "moon"} size={30} color={theme.textColor} />
         </TouchableOpacity>
@@ -57,8 +56,8 @@ export const AvailableEvents = () => {
           data={eventos}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <TouchableHighlight underlayColor="#333333" onPress={() => navigation.navigate("Event", { nombre: item.nombre, disponibles: item.disponibles, talleres: item.talleres, imagen:item.imagen })}>
-              <Card
+            <TouchableHighlight underlayColor="#333333" onPress={() => navigation.navigate("Event", { nombre: item.nombre, disponibles: item.disponibles, talleres: item.talleres, imagen: item.imagen })}>
+              <EventoCard
                 nombre={item.nombre}
                 disponibles={item.disponibles}
                 imagen={item.imagen}

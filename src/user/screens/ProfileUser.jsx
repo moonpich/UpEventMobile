@@ -1,28 +1,26 @@
 import React from "react";
-import {
-  StyleSheet,
-  SafeAreaView,
-  Image,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
-import { CircleUserRound } from "lucide-react-native";
+import {StyleSheet, SafeAreaView, Image, View, Text, TextInput, TouchableOpacity} from "react-native";
+import { CircleUserRound, LogOut } from "lucide-react-native";
 import { useTheme } from "../../global/context/ThemeContext";
 import Icon from "react-native-vector-icons/Ionicons";
-
+import { Button } from "react-native-paper";
+import { AuthContext } from "../../global/context/AuthContext";
+import { useContext } from "react";
 const logoUp = () => {
   return require("../../../assets/splash.png");
 };
 
 export const Profile = () => {
   const { theme, toggleTheme } = useTheme();
+  const { logout } = useContext(AuthContext);
 
   const styles = StyleSheet.create({
     containerButton: {
-      alignItems: "flex-end",
+      flexDirection: "row",
+      justifyContent: "flex-end",
+      alignItems: "center",
       marginTop: 20,
+      gap: 20,
     },
     input: {
       margin: 10,
@@ -65,6 +63,15 @@ export const Profile = () => {
       textAlign: "center",
       margin: 10,
     },
+    button: {
+      backgroundColor: "#6B2376",
+      borderRadius: 12,
+      alignItems: "center",
+      display: "flex",
+      justifyContent: "center",
+      textColor: "#F7EBF9",
+      margin: 20,
+    },
   });
 
   return (
@@ -76,6 +83,9 @@ export const Profile = () => {
             size={30}
             color={theme.textColor}
           />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => logout()}>
+          <LogOut size={30} color={theme.textColor} />
         </TouchableOpacity>
       </View>
       <View style={styles.container}>
@@ -97,9 +107,20 @@ export const Profile = () => {
         </View>
         <Text style={styles.title}>Mi perfil</Text>
         <Text style={styles.text}>Correo</Text>
-        <TextInput style={styles.input} value="melissapineda@gmail.com" />
+        <TextInput style={styles.input} />
         <Text style={styles.text}>Contraseña</Text>
-        <TextInput style={styles.input} value="********" secureTextEntry />
+        <TextInput style={styles.input} secureTextEntry />
+        <Text style={styles.text}>Confirmar contraseña</Text>
+        <TextInput style={styles.input} secureTextEntry />
+        <TouchableOpacity>
+          <Button
+            style={styles.button}
+            labelStyle={{ fontSize: 16 }}
+            theme={{ colors: { primary: "#F7EBF9" } }}
+          >
+            Guardar
+          </Button>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

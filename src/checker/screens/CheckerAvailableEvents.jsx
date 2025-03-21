@@ -6,79 +6,18 @@ import {
   View,
   Text,
   FlatList,
+  TouchableHighlight,
 } from "react-native";
+import eventos from "../../global/data/data";
 import { Card } from "../../global/components/Card";
+import { useNavigation } from "@react-navigation/native";
 
 const logoUp = () => {
   return require("../../../assets/splash.png");
 };
 
-const eventos = [
-  {
-    id: 1,
-    nombre:
-      "Expo. Globos Aerostáticos pipipipipipipiiipipipiipipipippiipipppipipiippipippipippippipippipipipipipippppipipippipipipippipipippipipipipip",
-    disponibles: 200,
-    imagen:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPE7q_71BoPkj-DqJuiekoyns7n4cojgCmxg&s",
-  },
-  {
-    id: 2,
-    nombre: "Expo. Luces Nocturnas",
-    disponibles: 2,
-    imagen: "url_de_la_imagen_luces",
-  },
-  {
-    id: 3,
-    nombre: "Feria Gastronómica",
-    disponibles: 37,
-    imagen: "url_de_la_imagen_gastronomica",
-  },
-  {
-    id: 4,
-    nombre: "Expo. Artesanal",
-    disponibles: 23,
-    imagen: "url_de_la_imagen_artesanal",
-  },
-  {
-    id: 5,
-    nombre: "Festival Ecológico",
-    disponibles: 80,
-    imagen: "url_de_la_imagen_ecologico",
-  },
-  {
-    id: 6,
-    nombre: "Expo. Carros",
-    disponibles: 2,
-    imagen: "url_de_la_imagen_carros",
-  },
-  {
-    id: 7,
-    nombre: "Expo. Carros",
-    disponibles: 2,
-    imagen: "url_de_la_imagen_carros",
-  },
-  {
-    id: 8,
-    nombre: "Expo. Carros",
-    disponibles: 2,
-    imagen: "url_de_la_imagen_carros",
-  },
-  {
-    id: 9,
-    nombre: "Expo. Carros",
-    disponibles: 2,
-    imagen: "url_de_la_imagen_carros",
-  },
-  {
-    id: 10,
-    nombre: "Expo. Carros",
-    disponibles: 2,
-    imagen: "url_de_la_imagen_carros",
-  },
-];
-
 export const CheckerAvailableEvents = () => {
+    const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -90,11 +29,13 @@ export const CheckerAvailableEvents = () => {
           data={eventos}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <Card
+            <TouchableHighlight underlayColor="#333333" onPress={() => navigation.navigate("Scanner")}>
+              <Card
               nombre={item.nombre}
               disponibles={item.disponibles}
               imagen={item.imagen}
             />
+            </TouchableHighlight>
           )}
           numColumns={2}
         />
