@@ -9,78 +9,12 @@ import {
 } from "react-native";
 import { Card } from "../../global/components/Card";
 import { Searchbar } from "react-native-paper";
+import eventos from "../../global/data/data";
 
 const logoUp = () => {
   return require("../../../assets/splash.png");
-  git;
 };
 
-const eventos = [
-  {
-    id: 1,
-    nombre:
-      "Expo. Globos Aerostáticos pipipipipipipiiipipipiipipipippiipipppipipiippipippipippippipippipipipipipippppipipippipipipippipipippipipipipip",
-    disponibles: 200,
-    url: {
-      imagen:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPE7q_71BoPkj-DqJuiekoyns7n4cojgCmxg&",
-    },
-  },
-  {
-    id: 2,
-    nombre: "Expo. Luces Nocturnas",
-    disponibles: 2,
-    imagen: "url_de_la_imagen_luces",
-  },
-  {
-    id: 3,
-    nombre: "Feria Gastronómica",
-    disponibles: 37,
-    imagen: "url_de_la_imagen_gastronomica",
-  },
-  {
-    id: 4,
-    nombre: "Expo. Artesanal",
-    disponibles: 23,
-    imagen: "url_de_la_imagen_artesanal",
-  },
-  {
-    id: 5,
-    nombre: "Festival Ecológico",
-    disponibles: 80,
-    imagen: "url_de_la_imagen_ecologico",
-  },
-  {
-    id: 6,
-    nombre: "Expo. Carros",
-    disponibles: 2,
-    imagen: "url_de_la_imagen_carros",
-  },
-  {
-    id: 7,
-    nombre: "Expo. Carros",
-    disponibles: 2,
-    imagen: "url_de_la_imagen_carros",
-  },
-  {
-    id: 8,
-    nombre: "Expo. Carros",
-    disponibles: 2,
-    imagen: "url_de_la_imagen_carros",
-  },
-  {
-    id: 9,
-    nombre: "Expo. Carros",
-    disponibles: 2,
-    imagen: "url_de_la_imagen_carros",
-  },
-  {
-    id: 10,
-    nombre: "Expo. Carros",
-    disponibles: 2,
-    imagen: "url_de_la_imagen_carros",
-  },
-];
 
 export const CheckerSearchEvents = () => {
   return (
