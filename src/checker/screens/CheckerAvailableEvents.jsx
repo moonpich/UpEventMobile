@@ -11,13 +11,35 @@ import {
 import eventos from "../../global/data/data";
 import { Card } from "../../global/components/Card";
 import { useNavigation } from "@react-navigation/native";
+import { useTheme } from "../../global/context/ThemeContext";
 
 const logoUp = () => {
   return require("../../../assets/splash.png");
 };
 
 export const CheckerAvailableEvents = () => {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
+  const { theme } = useTheme();
+  const styles = StyleSheet.create({
+    safeArea: {
+      flex: 1,
+      padding: 25,
+      backgroundColor: theme.backgroundColor,
+    },
+    container: {
+      alignItems: "center",
+    },
+    logo: {
+      width: 145,
+      height: 35,
+      margin: 10,
+    },
+    text: {
+      fontSize: 16,
+      textAlign: "center",
+      color: theme.text,
+    },
+  });
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -29,12 +51,15 @@ export const CheckerAvailableEvents = () => {
           data={eventos}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <TouchableHighlight underlayColor="#333333" onPress={() => navigation.navigate("Scanner")}>
+            <TouchableHighlight
+              underlayColor="#333333"
+              onPress={() => navigation.navigate("Scanner")}
+            >
               <Card
-              nombre={item.nombre}
-              disponibles={item.disponibles}
-              imagen={item.imagen}
-            />
+                nombre={item.nombre}
+                disponibles={item.disponibles}
+                imagen={item.imagen}
+              />
             </TouchableHighlight>
           )}
           numColumns={2}
@@ -43,24 +68,3 @@ export const CheckerAvailableEvents = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    padding: 25,
-    backgroundColor: "#000000",
-  },
-  container: {
-    alignItems: "center",
-  },
-  logo: {
-    width: 145,
-    height: 35,
-    margin: 10,
-  },
-  text: {
-    fontSize: 16,
-    textAlign: "center",
-    color: "#B3B3B3",
-  },
-});

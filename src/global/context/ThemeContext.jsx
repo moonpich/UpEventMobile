@@ -1,21 +1,24 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import { Appearance } from "react-native";
 
-// Definimos nuestros posibles temas 
+// Definimos nuestros posibles temas
 const lightTheme = {
   background: "#ffffff",
   textColor: "#000000",
-  tabBarStyle:"#F1F1F1",
-  navIconColorInactive:"#000000",
-  navIconColorActive:"#6B2376"
+  tabBarStyle: "#F1F1F1",
+  navIconColorInactive: "#000000",
+  navIconColorActive: "#6B2376",
+  tabSearchColor: "#240C27",
+  backgroundSearch: "#C955DD",
+  backgroundCard: "#009CCC",
 };
 
 const darkTheme = {
   background: "#000000",
   textColor: "#ffffff",
-  tabBarStyle:"#0e0e0e",
-  navIconColorInactive:"#FFFFFF",
-  navIconColorActive:"#6B2376"
+  tabBarStyle: "#0e0e0e",
+  navIconColorInactive: "#FFFFFF",
+  navIconColorActive: "#6B2376",
 };
 
 // Creamos un contexto
@@ -31,13 +34,15 @@ export const ThemeProvider = ({ children }) => {
       setTheme(colorScheme === "dark" ? darkTheme : lightTheme);
     };
     const subscription = Appearance.addChangeListener(listener);
-    
+
     return () => subscription.remove();
   }, []);
 
   // Función para cambiar el tema manualmente
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === lightTheme ? darkTheme : lightTheme));
+    setTheme((prevTheme) =>
+      prevTheme === lightTheme ? darkTheme : lightTheme
+    );
   };
 
   return (
