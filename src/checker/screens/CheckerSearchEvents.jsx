@@ -15,12 +15,12 @@ import { useTheme } from "../../global/context/ThemeContext";
 const logoUp = () => require("../../../assets/splash.png");
 
 export const CheckerSearchEvents = () => {
-  const { theme } = useTheme(); // Accede al tema actual
+  const { theme } = useTheme();
   const styles = StyleSheet.create({
     safeArea: {
       flex: 1,
       padding: 25,
-      backgroundColor: theme.background, // Aplica el color de fondo según el tema
+      backgroundColor: theme.background,
     },
     container: {
       alignItems: "center",
@@ -33,15 +33,15 @@ export const CheckerSearchEvents = () => {
     text: {
       fontSize: 16,
       textAlign: "center",
-      color: theme.textColor, // Aplica el color del texto según el tema
+      color: theme.textColor,
     },
     searchBar: {
-      color: theme.textColor, // Aplica el color del texto en la barra de búsqueda
-      backgroundColor: theme.backgroundSearch, // Color de fondo de la barra de búsqueda
+      color: theme.textColor,
+      backgroundColor: theme.backgroundSearch,
       margin: 20,
     },
     card: {
-      backgroundColor: theme.backgroundCard, // Aplica el color de fondo de las tarjetas
+      backgroundColor: theme.backgroundCard,
     },
   });
 
@@ -55,7 +55,7 @@ export const CheckerSearchEvents = () => {
       <Searchbar
         style={styles.searchBar}
         placeholder="Buscar eventos"
-        iconColor={theme.tabSearchColor} // Color de los íconos en la barra de búsqueda
+        iconColor={theme.tabSearchColor}
       />
 
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -67,7 +67,7 @@ export const CheckerSearchEvents = () => {
               nombre={item.nombre}
               disponibles={item.disponibles}
               imagen={item.imagen}
-              style={styles.card} // Aplica el estilo de la card
+              style={styles.card}
             />
           )}
           numColumns={2}

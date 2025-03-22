@@ -19,7 +19,7 @@ export const Card = ({ nombre, disponibles, imagen }) => {
     },
     card: {
       fontSize: 12,
-      backgroundColor: theme.backgroundCard, // Aplicando el color dinámico
+      backgroundColor: theme.backgroundCard,
       borderRadius: 12,
       width: 160,
       height: 163,

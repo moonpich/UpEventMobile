@@ -1,7 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import { Appearance } from "react-native";
 
-// Definimos nuestros posibles temas
 const lightTheme = {
   background: "#ffffff",
   textColor: "#000000",
