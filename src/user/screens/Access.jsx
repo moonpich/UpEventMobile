@@ -11,6 +11,7 @@ export default function Access({ route }) {
   const { id_event, id_workshop, nombre, disponibles, imagen } = route.params;
   const qrData = {
     id_user:1,
+    name: nombre,
     id_event:id_event,
     id_workshop:id_workshop
   };

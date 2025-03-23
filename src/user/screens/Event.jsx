@@ -1,14 +1,16 @@
-import React from "react";
-import { StyleSheet, Image, View, Text, FlatList } from "react-native";
+import React, { useState, useRef } from 'react';
+import { StyleSheet, Image, View, Text, FlatList, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CalendarPlus } from "lucide-react-native";
-
+import { generarYEnviarQR } from "../../global/data/apiUser";
 const logoUp = () => {
   return require("../../../assets/splash.png");
 };
 
 export function Event({ route }) {
-  const { nombre, disponibles, talleres, imagen } = route.params;
+  const { id, nombre, disponibles, talleres, imagen } = route.params;
+  const qrRef = useRef();
+
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -16,8 +18,8 @@ export function Event({ route }) {
         <Image style={styles.logo} source={logoUp()} />
       </View>
       <View style={styles.card}>
-        <View style={{flexDirection:'row'}}>
-          <View style={{flex:1}}>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ flex: 1 }}>
             <Text style={styles.nameCard} ellipsizeMode="tail">{nombre}</Text>
             <Text style={styles.disCard}>Cupos disponibles: {disponibles}</Text>
           </View>
@@ -41,7 +43,9 @@ export function Event({ route }) {
                   Disponibilidad: {item.cupo}
                 </Text>
               </View>
+              <TouchableOpacity onPress={() => generarYEnviarQR(qrRef, id, item.id, item.nombre)}>                
               <CalendarPlus color={"#F7EBF9"} size={32} style={styles.icon} />
+              </TouchableOpacity>
             </View>
           )}
         />
