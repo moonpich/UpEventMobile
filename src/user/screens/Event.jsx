@@ -16,28 +16,35 @@ export function Event({ route }) {
         <Image style={styles.logo} source={logoUp()} />
       </View>
       <View style={styles.card}>
-        <Text style={styles.nameCard}>{nombre}</Text>
-        <Text style={styles.disCard}>Cupos disponibles: {disponibles}</Text>
+        <View style={{flexDirection:'row'}}>
+          <View style={{flex:1}}>
+            <Text style={styles.nameCard} ellipsizeMode="tail">{nombre}</Text>
+            <Text style={styles.disCard}>Cupos disponibles: {disponibles}</Text>
+          </View>
+          <View>
+            <CalendarPlus color={"#F7EBF9"} size={48} style={styles.icon} />
+          </View>
+        </View>
         <View style={styles.imageContainer}>
-          <Image style={styles.imgCard} source={{uri: imagen}} />
-      </View>
-      <Text style={styles.talleresTitle}>Talleres:</Text>
+          <Image style={styles.imgCard} source={{ uri: imagen }} />
+        </View>
+        <Text style={styles.talleresTitle}>Talleres:</Text>
         <FlatList
-            data={talleres}
-            keyExtractor={(item) => String(item.id)}
-            style={{width:"100%"}}
-            renderItem={({ item }) => (
-              <View style={styles.talleres}>
-                <View style={{flex:1}}>
-                  <Text style={styles.tallerText}>{item.nombre}</Text>
-                  <Text style={styles.tallerCupo}>
-                    Disponibilidad: {item.cupo}
-                  </Text>
-                </View>
-                <CalendarPlus color={"#F7EBF9"} size={32} style={styles.icon} />
+          data={talleres}
+          keyExtractor={(item) => String(item.id)}
+          style={{ width: "100%" }}
+          renderItem={({ item }) => (
+            <View style={styles.talleres}>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.tallerText}>{item.nombre}</Text>
+                <Text style={styles.tallerCupo}>
+                  Disponibilidad: {item.cupo}
+                </Text>
               </View>
-            )}
-          />
+              <CalendarPlus color={"#F7EBF9"} size={32} style={styles.icon} />
+            </View>
+          )}
+        />
       </View>
     </SafeAreaView>
   );

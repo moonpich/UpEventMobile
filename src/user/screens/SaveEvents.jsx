@@ -22,7 +22,7 @@ export function SaveEvents() {
           data={eventos}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <TouchableHighlight underlayColor="#333333" onPress={() => navigation.navigate("SavedEvent", { nombre: item.nombre, disponibles: item.disponibles, talleres: item.talleres, imagen:item.imagen })}>
+            <TouchableHighlight underlayColor="#333333" onPress={() => navigation.navigate("SavedEvent", { id: item.id, nombre: item.nombre, disponibles: item.disponibles, talleres: item.talleres, imagen:item.imagen })}>
               <EventoCard
                 nombre={item.nombre}
                 disponibles={item.disponibles}

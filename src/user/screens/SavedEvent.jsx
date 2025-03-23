@@ -9,7 +9,7 @@ const logoUp = () => {
 };
 
 export function SavedEvent({ route }) {
-  const { nombre, disponibles, talleres, imagen } = route.params;
+  const { id, nombre, disponibles, talleres, imagen } = route.params;
   const navigation = useNavigation(); 
 
   return (
@@ -29,7 +29,7 @@ export function SavedEvent({ route }) {
             keyExtractor={(item) => String(item.id)}
             style={{width:"100%"}}
             renderItem={({ item }) => (
-            <TouchableHighlight onPress={() => navigation.navigate("Access", { nombre: item.nombre, disponibles: item.disponibles, talleres: item.talleres, imagen:item.imagen })}>
+            <TouchableHighlight onPress={() => navigation.navigate("Access", {id_event:id, id_workshop:item.id,  nombre: item.nombre, disponibles: item.disponibles, imagen:item.imagen })}>
                 <View style={styles.talleres}>
                 <View style={{flex:1}}>
                   <Text style={styles.tallerText}>{item.nombre}</Text>

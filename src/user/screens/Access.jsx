@@ -8,8 +8,12 @@ const logoUp = () => {
 };
 
 export default function Access({ route }) {
-  const { nombre, disponibles, talleres, imagen } = route.params;
-  const qrData = `Evento: ${nombre}, Rol:usuario`;
+  const { id_event, id_workshop, nombre, disponibles, imagen } = route.params;
+  const qrData = {
+    id_user:1,
+    id_event:id_event,
+    id_workshop:id_workshop
+  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -33,7 +37,7 @@ export default function Access({ route }) {
                 borderRadius: 12
               }}
             >
-              <QRCode value={qrData} size={200} />
+              <QRCode value={JSON.stringify(qrData)} size={200} />
             </View>
           </View>
         </View>

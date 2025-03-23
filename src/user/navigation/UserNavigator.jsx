@@ -27,7 +27,7 @@ function AvailableEventsStack() {
 function SaveEventsStack() {
   const { theme } = useTheme(); 
   return (
-    <Stack.Navigator screenOptions={{headerShown: true, headerTitle: "", headerStyle: {backgroundColor:theme.background}, headerTintColor: theme.textColor}}>
+    <Stack.Navigator screenOptions={{headerShown: true, headerTitle: "", headerTransparent:true, headerTintColor: theme.textColor}}>
       <Stack.Screen name="SaveEventsScreen" component={SaveEvents} />
       <Stack.Screen name="SavedEvent" component={SavedEvent} />
       <Stack.Screen name="Access" component={Access} />
