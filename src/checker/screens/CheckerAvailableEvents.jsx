@@ -16,7 +16,6 @@ import { useTheme } from "../../global/context/ThemeContext";
 const logoUp = () => {
   return require("../../../assets/splash.png");
 };
-
 export const CheckerAvailableEvents = () => {
   const navigation = useNavigation();
   const { theme } = useTheme();
@@ -24,7 +23,7 @@ export const CheckerAvailableEvents = () => {
     safeArea: {
       flex: 1,
       padding: 25,
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.background,
     },
     container: {
       alignItems: "center",
