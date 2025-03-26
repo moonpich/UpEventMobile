@@ -14,8 +14,8 @@ export const MainNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {user ? (
-          user.role === "admin" ? (
+        {user && user.email !== "" ? (
+          user.role === "CHECADOR" ? (
             <Stack.Screen name="CheckerStack" component={CheckerNavigator} />
           ) : (
             <Stack.Screen name="UserStack" component={UserNavigator} />
