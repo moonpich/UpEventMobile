@@ -9,9 +9,6 @@ const logoUp = () => {
 
 export function Event({ route }) {
   const { id, nombre, disponibles, talleres, imagen } = route.params;
-  const qrRef = useRef();
-
-
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -43,7 +40,7 @@ export function Event({ route }) {
                   Disponibilidad: {item.cupo}
                 </Text>
               </View>
-              <TouchableOpacity onPress={() => generarYEnviarQR(qrRef, id, item.id, item.nombre)}>                
+              <TouchableOpacity onPress={() => generarYEnviarQR(id, item.id, item.nombre)}>                
               <CalendarPlus color={"#F7EBF9"} size={32} style={styles.icon} />
               </TouchableOpacity>
             </View>
