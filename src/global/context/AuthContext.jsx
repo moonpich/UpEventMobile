@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   const login = async ({ email, password }) => {
     try {
       const request = await api.post(
-        "http://192.168.100.66:8000/api/auth/login",
+        "/auth/login",
         JSON.stringify({ email, password })
       );
 
