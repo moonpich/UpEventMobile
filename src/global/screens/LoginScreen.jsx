@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 
+
 const logoUp = () => {
   return require("../../../assets/splash.png");
 };

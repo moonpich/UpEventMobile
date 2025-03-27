@@ -1,30 +1,21 @@
 import { createContext, useState } from "react";
-
-import api from "../../config/api";
+import { LoginRequest } from "../data/login.service";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState({
-    email: "",
-    role: "",
-  });
+  const [user, setUser] = useState(null);
 
   const login = async ({ email, password }) => {
-    try {
-      const request = await api.post(
-        "/auth/login",
-        JSON.stringify({ email, password })
-      );
 
-      if (request.status === 200) {
-        const role = request.data.role;
-        setUser({ email, role });
+      const role = LoginRequest(email, password)
+
+      if (!role) {
+        console.error("Credenciales invalidas");
+        return;
       }
-      throw new Error("Invalid credential");
-    } catch (error) {
-      console.error(error);
-      return;
-    }
+
+       setUser({email, role});
+  
   };
 
   const logout = () => setUser(null);
