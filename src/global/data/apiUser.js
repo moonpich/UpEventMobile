@@ -1,27 +1,18 @@
 import axios from 'axios';
-import QRCode from 'react-native-qrcode-svg';
 import { Alert } from 'react-native';
 
-export const generarYEnviarQR = async (qrRef, id_event, id_workshop, name) => {
-  const qrData = {
-    id_user: 1,
-    name: name,
-    id_event: id_event,
-    id_workshop: id_workshop,
-  };
-
-  if (qrRef.current) {
-    qrRef.current.toDataURL(async (dataURL) => {
-      try {
-        const response = await axios.post('http://localhost:8080/api/qr/recived', {
-          ...qrData,
-          qrImage: dataURL,
-        });
-
-        Alert.alert('QR Enviado', 'Tu QR ha sido enviado correctamente.');
-      } catch (error) {
-        Alert.alert('Error', 'No se pudo enviar el QR.');
-      }
+export const generarYEnviarQR = async (id_event, id_workshop, name) => {
+  try {
+    const response = await axios.post('http://192.168.0.71:8000/api/qr/send', {
+      email: "20233tn092@utez.edu.mx", 
+      id_user: "1",
+      id_event: id_event,
+      id_workshop: id_workshop,
+      name: name,
     });
+
+    Alert.alert('QR Enviado', 'Revisa tu correo para recibir el QR.');
+  } catch (error) {
+    Alert.alert('Error', 'No se pudo enviar el QR.');
   }
 };
