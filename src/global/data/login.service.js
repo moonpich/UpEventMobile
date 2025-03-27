@@ -6,7 +6,7 @@ export const LoginRequest = async (email, password) => {
       JSON.stringify({ email, password })
     );
 
-    if (response.response.status === 200 && response.data.type === "SUCCESS") {
+    if (response.status === 200 && response.data.type === "SUCCESS") {
       return response.data.result.role || "Sesion exitosa";
     }else{
       console.error("Error de autenticacion", response.data.message);
