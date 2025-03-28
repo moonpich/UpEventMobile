@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import { LoginRequest } from "../data/login.service";
+import Toast from "react-native-toast-message";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -7,14 +8,19 @@ export const AuthProvider = ({ children }) => {
 
   const login = async ({ email, password }) => {
 
-      const role = LoginRequest(email, password)
+      const role = await LoginRequest(email, password);
 
       if (!role) {
-        console.error("Credenciales invalidas");
+        Toast.show({
+          type:"error",
+          text1:"Credenciales invalidas"
+        })
         return;
       }
 
-       setUser({email, role});
+      setTimeout(()=>{
+        setUser({email, role});
+      }, 4000);
   
   };
 
