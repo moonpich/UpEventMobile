@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   Image,
   TextInput,
 } from "react-native";
+import { TextInput as PaperTextInput } from "react-native-paper";
 import { AuthContext } from "../context/AuthContext";
 
 
@@ -17,6 +18,7 @@ const LoginScreen = () => {
   const { login } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = React.useState(false);
 
   return (
     <View style={styles.container}>
@@ -38,25 +40,28 @@ const LoginScreen = () => {
             placeholderTextColor={"rgba(242, 242, 242, .2)"}
             onChangeText={(text) => setUsername(text.trim().toLowerCase())}
           />
-          <Text style={styles.line}>
-            ___________________________________________
-          </Text>
         </View>
 
         <View>
           <Text style={styles.label}>
             Contraseña <Text style={styles.labelImportant}>*</Text>
           </Text>
-          <TextInput
+          <PaperTextInput
             style={styles.input}
             placeholder="Ingrese su contraseña"
-            secureTextEntry
+            secureTextEntry={!showPassword}
             onChangeText={setPassword}
+            right={
+              <PaperTextInput.Icon
+                icon={showPassword ? "eye-off" : "eye"}
+                onPress={() => setShowPassword(!showPassword)} />}
             placeholderTextColor={"rgba(242, 242, 242, .2)"}
+            theme={{
+              colors: {
+                onSurface: "#F2F2F2", 
+              },
+            }}
           />
-          <Text style={styles.line}>
-            ___________________________________________
-          </Text>
         </View>
         <TouchableOpacity
           style={styles.button}
@@ -101,17 +106,16 @@ const styles = StyleSheet.create({
   },
   input: {
     color: "#F2F2F2",
-    width: "70%",
+    width: "80%",
     height: 40,
-    borderWidth: 1,
-    borderBottomColor: "#D3C5D3",
-    borderLeftColor: "#1A1A1A",
-    borderRightColor: "#1A1A1A",
-    borderTopColor: "#1A1A1A",
+    borderBottomWidth: 1,
+    borderBottomColor: "#F2F2F2",
+    borderLeftWidth: 0,
+    borderRightWidth:0,
+    borderTopWidth:0,
     margin: 10,
     padding: 8,
     backgroundColor: "#1A1A1A",
-    borderRadius: 8,
   },
   line: {
     color: "#F2F2F2",
