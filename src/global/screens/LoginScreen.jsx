@@ -7,14 +7,15 @@ import {
   Image,
   TextInput,
 } from "react-native";
-import { TextInput as PaperTextInput } from "react-native-paper";
 import { AuthContext } from "../context/AuthContext";
+import { EyeOff, Eye} from "lucide-react-native";
 
 
 const logoUp = () => {
   return require("../../../assets/splash.png");
 };
 const LoginScreen = () => {
+
   const { login } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -41,27 +42,23 @@ const LoginScreen = () => {
             onChangeText={(text) => setUsername(text.trim().toLowerCase())}
           />
         </View>
-
         <View>
           <Text style={styles.label}>
             Contraseña <Text style={styles.labelImportant}>*</Text>
           </Text>
-          <PaperTextInput
-            style={styles.input}
-            placeholder="Ingrese su contraseña"
-            secureTextEntry={!showPassword}
-            onChangeText={setPassword}
-            right={
-              <PaperTextInput.Icon
-                icon={showPassword ? "eye-off" : "eye"}
-                onPress={() => setShowPassword(!showPassword)} />}
-            placeholderTextColor={"rgba(242, 242, 242, .2)"}
-            theme={{
-              colors: {
-                onSurface: "#F2F2F2", 
-              },
-            }}
-          />
+          <View style={{flexDirection:'row'}}>
+            <TextInput
+              style={styles.input}
+              placeholder="Ingrese su contraseña"
+              placeholderTextColor="rgba(242, 242, 242, .5)"
+              secureTextEntry={!showPassword}
+              onChangeText={setPassword} />
+            <TouchableOpacity
+              onPress={() => setShowPassword(!showPassword)}
+              style={styles.eyeButton}>
+              <Text style={styles.eyeIcon}>{showPassword ? <EyeOff size={24} color="#b3b3b3" /> : <Eye size={24} color="#b3b3b3" />}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <TouchableOpacity
           style={styles.button}
@@ -95,11 +92,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: "#F2F2F2",
     textAlign: "center",
+    fontFamily: "Century Gothic"
   },
   label: {
     color: "#735973",
     margin: 10,
     fontWeight: "ultralight",
+    fontFamily: "Century Gothic",
   },
   labelImportant: {
     color: "#33CFFF",
@@ -111,11 +110,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#F2F2F2",
     borderLeftWidth: 0,
-    borderRightWidth:0,
-    borderTopWidth:0,
+    borderRightWidth: 0,
+    borderTopWidth: 0,
     margin: 10,
     padding: 8,
     backgroundColor: "#1A1A1A",
+    fontFamily: "Century Gothic",
   },
   line: {
     color: "#F2F2F2",

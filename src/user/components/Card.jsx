@@ -7,15 +7,18 @@ export function EventoCard({ name,startDate, endDate, frontPage }) {
   
 const styles = StyleSheet.create({
   imgCard: {
-    width: 122,
-    height: 64,
+    width: 140,
+    height: 75,
     borderRadius: 20,
+    resizeMode:'cover'
   },
   disCard: {
     color: "#999999",
+    fontFamily: "Century Gothic"
   },
   nameCard: {
     color: theme.textColor,
+    fontFamily: "Century Gothic Bold"
   },
   card: {
     fontSize: 12,
@@ -25,7 +28,7 @@ const styles = StyleSheet.create({
     height: 163,
     margin: 9,
     padding: 8,
-  },
+    },
 });
 
 

@@ -35,6 +35,7 @@ export const AvailableEvents = () => {
       fontSize: 22,
       textAlign: "center",
       color: "#B3B3B3",
+      fontFamily: "Century Gothic Bold"
     },
   });
 

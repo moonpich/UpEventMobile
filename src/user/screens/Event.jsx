@@ -77,14 +77,15 @@ const styles = StyleSheet.create({
   },
   nameCard: {
     color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 19,
     marginBottom: 5,
+    fontFamily: "Century Gothic Bold"
   },
   disCard: {
     color: "#999999",
-    fontSize: 14,
+    fontSize: 16,
     marginBottom: 10,
+    fontFamily: "Century Gothic"
   },
   imageContainer: {
     alignItems: "center",
@@ -97,9 +98,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   talleresTitle: {
-    fontSize: 16,
+    fontSize: 18,
     color: "#FFFFFF",
-    fontWeight: "bold",
+    fontFamily: "Century Gothic Bold",
     marginTop: 10,
   },
   talleres: {
@@ -114,13 +115,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   tallerText: {
-    fontSize: 13,
+    fontSize: 16,
     color: "#FFFFFF",
-    fontWeight: "bold",
+    fontFamily: "Century Gothic Bold"
   },
   tallerCupo: {
-    fontSize: 13,
+    fontSize: 14,
     color: "#CCCCCC",
+    fontFamily: "Century Gothic"
   },
   icon: {
     alignSelf: "center",
