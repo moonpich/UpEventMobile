@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, Image, StyleSheet} from "react-native";
 import { useTheme } from "../../global/context/ThemeContext";
 
-export function EventoCard({ nombre, disponibles, talleres,  imagen }) {
+export function EventoCard({ name,startDate, endDate, frontPage }) {
   const { theme, toggleTheme } = useTheme();
   
 const styles = StyleSheet.create({
@@ -32,11 +32,11 @@ const styles = StyleSheet.create({
   return (
       <View style={styles.card}>
         <Text style={styles.nameCard} numberOfLines={2} ellipsizeMode="tail">
-          {nombre}
+          {name}
         </Text>
-        <Text style={styles.disCard}>Disponibles: {disponibles}</Text>
+        <Text style={styles.disCard}>Del {startDate} al {endDate}</Text>
         <View style={{ alignItems: "center", padding: 10 }}>
-          <Image style={styles.imgCard} source={{uri: imagen}} />
+          <Image style={styles.imgCard} source={{uri: frontPage}} />
         </View>
       </View>
   );

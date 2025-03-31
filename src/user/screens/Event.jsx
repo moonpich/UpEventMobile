@@ -8,7 +8,7 @@ const logoUp = () => {
 };
 
 export function Event({ route }) {
-  const { id, nombre, disponibles, talleres, imagen } = route.params;
+  const { id, name, startDate, endDate, workshops, frontPage } = route.params;
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -17,31 +17,33 @@ export function Event({ route }) {
       <View style={styles.card}>
         <View style={{ flexDirection: 'row' }}>
           <View style={{ flex: 1 }}>
-            <Text style={styles.nameCard} ellipsizeMode="tail">{nombre}</Text>
-            <Text style={styles.disCard}>Cupos disponibles: {disponibles}</Text>
+            <Text style={styles.nameCard} ellipsizeMode="tail">{name}</Text>
+            <Text style={styles.disCard}>Del {startDate} al {endDate}</Text>
           </View>
           <View>
-            <CalendarPlus color={"#F7EBF9"} size={48} style={styles.icon} />
+            <TouchableOpacity>
+              <CalendarPlus color={"#F7EBF9"} size={48} style={styles.icon} />
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.imageContainer}>
-          <Image style={styles.imgCard} source={{ uri: imagen }} />
+          <Image style={styles.imgCard} source={{ uri: frontPage }} />
         </View>
         <Text style={styles.talleresTitle}>Talleres:</Text>
         <FlatList
-          data={talleres}
+          data={workshops}
           keyExtractor={(item) => String(item.id)}
           style={{ width: "100%" }}
           renderItem={({ item }) => (
             <View style={styles.talleres}>
               <View style={{ flex: 1 }}>
-                <Text style={styles.tallerText}>{item.nombre}</Text>
+                <Text style={styles.tallerText}>{item.name}</Text>
                 <Text style={styles.tallerCupo}>
-                  Disponibilidad: {item.cupo}
+                  Disponibilidad: {item.capacity}
                 </Text>
               </View>
-              <TouchableOpacity onPress={() => generarYEnviarQR(id, item.id, item.nombre)}>                
-              <CalendarPlus color={"#F7EBF9"} size={32} style={styles.icon} />
+              <TouchableOpacity onPress={() => generarYEnviarQR(id, item.id, item.name)}>
+                <CalendarPlus color={"#F7EBF9"} size={32} style={styles.icon} />
               </TouchableOpacity>
             </View>
           )}
