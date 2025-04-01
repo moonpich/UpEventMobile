@@ -29,6 +29,7 @@ export const Profile = () => {
       padding: 5,
       fontSize: 16,
       color: theme.textColor,
+      fontFamily:"Century Gothic Bold"
     },
     containerProfile: {
       flex: 1,
@@ -56,12 +57,14 @@ export const Profile = () => {
       fontSize: 16,
       color: theme.textColor,
       margin: 10,
+      fontFamily:"Century Gothic Bold"
     },
     title: {
-      fontSize: 22,
+      fontSize: 25,
       color: theme.textColor,
       textAlign: "center",
       margin: 10,
+      fontFamily:"Century Gothic Bold"
     },
     button: {
       backgroundColor: "#6B2376",
@@ -71,6 +74,7 @@ export const Profile = () => {
       justifyContent: "center",
       textColor: "#F7EBF9",
       margin: 20,
+      fontFamily:"Century Gothic Bold"
     },
   });
 

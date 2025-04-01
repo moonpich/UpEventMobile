@@ -8,7 +8,7 @@ import {
   TextInput,
 } from "react-native";
 import { AuthContext } from "../context/AuthContext";
-import { EyeOff, Eye} from "lucide-react-native";
+import { EyeOff, Eye } from "lucide-react-native";
 
 
 const logoUp = () => {
@@ -46,7 +46,7 @@ const LoginScreen = () => {
           <Text style={styles.label}>
             Contraseña <Text style={styles.labelImportant}>*</Text>
           </Text>
-          <View style={{flexDirection:'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <TextInput
               style={styles.input}
               placeholder="Ingrese su contraseña"
@@ -126,15 +126,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#00C3FF",
     padding: 12,
     borderRadius: 12,
-    fontWeight: "bold",
     marginTop: 80,
     marginLeft: 10,
     marginRight: 10,
   },
   buttonText: {
     color: "white",
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 18,
+    fontFamily: "Century Gothic Bold", 
     textAlign: "center",
   },
 });
