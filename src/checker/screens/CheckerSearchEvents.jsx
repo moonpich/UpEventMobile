@@ -34,6 +34,7 @@ export const CheckerSearchEvents = () => {
       fontSize: 16,
       textAlign: "center",
       color: theme.textColor,
+      fontFamily: "Century Gothic Bold",
     },
     searchBar: {
       color: theme.textColor,

@@ -64,6 +64,7 @@ export const CheckerProfile = () => {
       fontSize: 16,
       color: theme.textColor,
       margin: 10,
+      fontFamily: "Century Gothic Bold",
     },
     title: {
       fontSize: 22,

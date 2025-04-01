@@ -37,6 +37,7 @@ export const CheckerAvailableEvents = () => {
       fontSize: 16,
       textAlign: "center",
       color: theme.text,
+      fontFamily: "Century Gothic Bold",
     },
   });
   return (

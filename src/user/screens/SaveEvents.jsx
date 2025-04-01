@@ -1,15 +1,41 @@
-import React from "react";
-import { StyleSheet, SafeAreaView, Image, View, Text, FlatList, TouchableHighlight} from "react-native";
+import React, { useContext } from "react";
+import {
+  StyleSheet,
+  SafeAreaView,
+  Image,
+  View,
+  Text,
+  FlatList,
+  TouchableHighlight,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { EventoCard } from "../components/Card";
 import eventos from "../../global/data/data";
+import { AuthContext } from "../../global/context/AuthContext";
 
 const logoUp = () => {
   return require("../../../assets/splash.png");
 };
 
 export function SaveEvents() {
-  const navigation = useNavigation(); 
+  const navigation = useNavigation();
+  const { user } = useContext(AuthContext);
+  const [events, setEvents] = useState([]);
+  const email = user.email;
+
+  useEffect(() => {
+    console.log("useEffect llamado");
+    const fetchEvents = async () => {
+      try {
+        const data = await SaveEvents(email);
+        setEvents(data);
+      } catch (error) {
+        console.log("Error obteniendo los eventos", error);
+      }
+    };
+
+    fetchEvents();
+  }, []);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -19,10 +45,21 @@ export function SaveEvents() {
       <Text style={styles.text}>Mis Eventos</Text>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <FlatList
-          data={eventos}
+          data={events}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <TouchableHighlight underlayColor="#333333" onPress={() => navigation.navigate("SavedEvent", { id: item.id, nombre: item.nombre, disponibles: item.disponibles, talleres: item.talleres, imagen:item.imagen })}>
+            <TouchableHighlight
+              underlayColor="#333333"
+              onPress={() =>
+                navigation.navigate("SavedEvent", {
+                  id: item.id,
+                  nombre: item.nombre,
+                  disponibles: item.disponibles,
+                  talleres: item.talleres,
+                  imagen: item.imagen,
+                })
+              }
+            >
               <EventoCard
                 nombre={item.nombre}
                 disponibles={item.disponibles}
