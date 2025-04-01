@@ -1,6 +1,7 @@
 import { Alert } from 'react-native';
 import api from '../../config/api';
 import * as SecureStore from "expo-secure-store";
+import Toast from "react-native-toast-message";
 
 export const generarYEnviarQR = async (id_event, id_workshop, name) => {
   try {
@@ -33,6 +34,26 @@ export const getEvents = async () => {
     return events;
   } catch (error) {
     console.log('Error obteniendo los eventos desde la peticion', error);
+    return [];
+  }
+};
+
+
+export const registerEvent = async ( idEvent, email ) => {
+  try {
+    const access_token = await SecureStore.getItemAsync("access_token");
+    console.log("Token Guardado:", access_token);
+    console.log(idEvent);
+    const response = await api.post('/api/registration/event-register/movil', {email, idEvent});
+    console.log(response.status);
+    return (
+      Toast.show({
+              type: "success",
+              text1: "Te has registrado correctamente al evento"
+            })
+    );
+  } catch (error) {
+    console.log('Error registrandose a evento', error);
     return [];
   }
 };

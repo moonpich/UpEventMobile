@@ -1,13 +1,16 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext} from 'react';
 import { StyleSheet, Image, View, Text, FlatList, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CalendarPlus } from "lucide-react-native";
 import { generarYEnviarQR } from "../../global/data/apiUser";
+import { registerEvent } from '../../global/data/apiUser';
+import { AuthContext } from '../../global/context/AuthContext';
 const logoUp = () => {
   return require("../../../assets/splash.png");
 };
 
 export function Event({ route }) {
+  const { user } = useContext(AuthContext);
   const { id, name, startDate, endDate, workshops, frontPage } = route.params;
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -21,7 +24,7 @@ export function Event({ route }) {
             <Text style={styles.disCard}>Del {startDate} al {endDate}</Text>
           </View>
           <View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => registerEvent(id, user.email)}>
               <CalendarPlus color={"#F7EBF9"} size={48} style={styles.icon} />
             </TouchableOpacity>
           </View>
