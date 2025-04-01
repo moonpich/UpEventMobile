@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { EventoCard } from "../components/Card";
 import eventos from "../../global/data/data";
 import { AuthContext } from "../../global/context/AuthContext";
+import { getsaveEvents } from "../../global/data/apiUser";
 
 const logoUp = () => {
   return require("../../../assets/splash.png");
@@ -27,7 +28,7 @@ export function SaveEvents() {
     console.log("useEffect llamado");
     const fetchEvents = async () => {
       try {
-        const data = await SaveEvents(email);
+        const data = await getsaveEvents(email);
         setEvents(data);
       } catch (error) {
         console.log("Error obteniendo los eventos", error);
@@ -53,7 +54,7 @@ export function SaveEvents() {
               onPress={() =>
                 navigation.navigate("SavedEvent", {
                   id: item.id,
-                  nombre: item.nombre,
+                  nombre: item.name,
                   disponibles: item.disponibles,
                   talleres: item.talleres,
                   imagen: item.imagen,
