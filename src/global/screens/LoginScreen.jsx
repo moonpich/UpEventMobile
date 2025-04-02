@@ -10,16 +10,15 @@ import {
 import { AuthContext } from "../context/AuthContext";
 import { EyeOff, Eye } from "lucide-react-native";
 
-
 const logoUp = () => {
   return require("../../../assets/splash.png");
 };
-const LoginScreen = () => {
 
+const LoginScreen = () => {
   const { login } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -29,6 +28,8 @@ const LoginScreen = () => {
 
       <View style={styles.loginContainer}>
         <Text style={styles.title}>Iniciar Sesión</Text>
+
+        {/* Campo de Correo */}
         <View>
           <Text style={styles.label}>
             Correo <Text style={styles.labelImportant}>*</Text>
@@ -38,28 +39,38 @@ const LoginScreen = () => {
             placeholder="Ingrese su correo"
             keyboardType="email-address"
             autoCapitalize="none"
-            placeholderTextColor={"rgba(242, 242, 242, .2)"}
+            placeholderTextColor="rgba(242, 242, 242, .2)"
             onChangeText={(text) => setUsername(text.trim().toLowerCase())}
           />
         </View>
+
+        {/* Campo de Contraseña */}
         <View>
           <Text style={styles.label}>
             Contraseña <Text style={styles.labelImportant}>*</Text>
           </Text>
-          <View style={{ flexDirection: 'row' }}>
+          <View style={styles.passwordContainer}>
             <TextInput
-              style={styles.input}
+              style={styles.inputPassword}
               placeholder="Ingrese su contraseña"
               placeholderTextColor="rgba(242, 242, 242, .5)"
               secureTextEntry={!showPassword}
-              onChangeText={setPassword} />
+              onChangeText={setPassword}
+            />
             <TouchableOpacity
               onPress={() => setShowPassword(!showPassword)}
-              style={styles.eyeButton}>
-              <Text style={styles.eyeIcon}>{showPassword ? <EyeOff size={24} color="#b3b3b3" /> : <Eye size={24} color="#b3b3b3" />}</Text>
+              style={styles.eyeButton}
+            >
+              {showPassword ? (
+                <EyeOff size={24} color="#b3b3b3" />
+              ) : (
+                <Eye size={24} color="#b3b3b3" />
+              )}
             </TouchableOpacity>
           </View>
         </View>
+
+        {/* Botón de Iniciar Sesión */}
         <TouchableOpacity
           style={styles.button}
           onPress={() => login({ email: username, password: password })}
@@ -92,7 +103,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: "#F2F2F2",
     textAlign: "center",
-    fontFamily: "Century Gothic"
+    fontFamily: "Century Gothic",
   },
   label: {
     color: "#735973",
@@ -105,35 +116,47 @@ const styles = StyleSheet.create({
   },
   input: {
     color: "#F2F2F2",
-    width: "80%",
+    width: "100%",
     height: 40,
     borderBottomWidth: 1,
     borderBottomColor: "#F2F2F2",
-    borderLeftWidth: 0,
-    borderRightWidth: 0,
-    borderTopWidth: 0,
-    margin: 10,
+    marginBottom: 15,
     padding: 8,
     backgroundColor: "#1A1A1A",
     fontFamily: "Century Gothic",
   },
-  line: {
+  passwordContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    position: "relative",
+  },
+  inputPassword: {
     color: "#F2F2F2",
+    width: "100%",
+    height: 40,
+    borderBottomWidth: 1,
+    borderBottomColor: "#F2F2F2",
+    padding: 8,
+    backgroundColor: "#1A1A1A",
+    fontFamily: "Century Gothic",
+  },
+  eyeButton: {
+    position: "absolute",
+    right: 10,
+    top: 10,
+    padding: 5,
   },
   button: {
     textAlign: "center",
-    color: "#F2F2F2",
     backgroundColor: "#00C3FF",
     padding: 12,
     borderRadius: 12,
-    marginTop: 80,
-    marginLeft: 10,
-    marginRight: 10,
+    marginTop: 50,
   },
   buttonText: {
     color: "white",
     fontSize: 18,
-    fontFamily: "Century Gothic Bold", 
+    fontFamily: "Century Gothic Bold",
     textAlign: "center",
   },
 });
