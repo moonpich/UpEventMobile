@@ -36,7 +36,7 @@ export const CheckerAvailableEvents = () => {
     text: {
       fontSize: 22,
       textAlign: "center",
-      color: theme.text,
+      color: theme.textColor,
       fontFamily: "Century Gothic Bold",
     },
   });
@@ -45,7 +45,7 @@ export const CheckerAvailableEvents = () => {
       <View style={styles.container}>
         <Image style={styles.logo} source={logoUp()} />
       </View>
-      <Text style={styles.text}>Eventos Disponibles</Text>
+      <Text style={styles.text}>Eventos Asignados</Text>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <FlatList
           data={eventos}
@@ -59,6 +59,7 @@ export const CheckerAvailableEvents = () => {
                 nombre={item.nombre}
                 disponibles={item.disponibles}
                 imagen={item.imagen}
+                styles={styles.card}
               />
             </TouchableHighlight>
           )}

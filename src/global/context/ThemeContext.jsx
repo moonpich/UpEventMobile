@@ -7,9 +7,8 @@ const lightTheme = {
   tabBarStyle: "#F1F1F1",
   navIconColorInactive: "#000000",
   navIconColorActive: "#6B2376",
-  tabSearchColor: "#240C27",
   backgroundSearch: "#C955DD",
-  backgroundCard: "#009CCC",
+  backgroundCard: "#F1F1F1",
 };
 
 const darkTheme = {
@@ -18,6 +17,7 @@ const darkTheme = {
   tabBarStyle: "#0e0e0e",
   navIconColorInactive: "#FFFFFF",
   navIconColorActive: "#6B2376",
+  backgroundCard: "#0e0e0e",
 };
 
 // Creamos un contexto

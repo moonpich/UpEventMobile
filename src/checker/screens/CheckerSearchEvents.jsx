@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -6,9 +6,9 @@ import {
   View,
   Text,
   FlatList,
-  TextInput
+  TextInput,
 } from "react-native";
-import { Search } from 'lucide-react-native';
+import { Search } from "lucide-react-native";
 import eventos from "../../global/data/data";
 import { Card } from "../../global/components/Card";
 import { useTheme } from "../../global/context/ThemeContext";
@@ -19,18 +19,19 @@ export const CheckerSearchEvents = () => {
   const { theme } = useTheme();
   const styles = StyleSheet.create({
     containerSearch: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      backgroundColor: '#f0f0f0',
+      flexDirection: "row",
+      alignItems: "center",
+      backgroundColor: theme.tabBarStyle,
       borderRadius: 20,
       height: 40,
-      margin: 12
+      margin: 12,
+      padding: 1,
     },
     inputSearch: {
       flex: 1,
       fontSize: 16,
-      color: '#333',
-      fontFamily: "Century Gothic"
+      color: "#333",
+      fontFamily: "Century Gothic",
     },
     safeArea: {
       flex: 1,
@@ -56,14 +57,14 @@ export const CheckerSearchEvents = () => {
       backgroundColor: theme.backgroundSearch,
       margin: 20,
     },
-    card: {
-      backgroundColor: theme.backgroundCard,
+    icon: {
+      marginHorizontal: 10,
     },
   });
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredEvents = eventos.filter(event =>
+  const filteredEvents = eventos.filter((event) =>
     event.nombre.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -94,7 +95,7 @@ export const CheckerSearchEvents = () => {
               nombre={item.nombre}
               disponibles={item.disponibles}
               imagen={item.imagen}
-              style={styles.card}
+              style={theme.tabBarStyle}
             />
           )}
           numColumns={2}

@@ -29,6 +29,7 @@ export const CheckerProfile = () => {
       alignItems: "center",
       marginTop: 20,
       gap: 20,
+      padding: 3,
     },
     input: {
       margin: 10,
@@ -38,7 +39,6 @@ export const CheckerProfile = () => {
       fontSize: 16,
       color: theme.textColor,
       fontFamily: "Century Gothic",
-
     },
     containerProfile: {
       flex: 1,
@@ -79,7 +79,7 @@ export const CheckerProfile = () => {
       color: theme.textColor,
       textAlign: "center",
       margin: 10,
-      fontFamily: "Century Gothic Bold"
+      fontFamily: "Century Gothic Bold",
     },
     button: {
       backgroundColor: "#6B2376",
@@ -87,9 +87,12 @@ export const CheckerProfile = () => {
       alignItems: "center",
       display: "flex",
       justifyContent: "center",
-      textColor: "#F7EBF9",
+      textColor: theme.textColor,
       margin: 20,
-      fontFamily: "Century Gothic"
+      fontFamily: "Century Gothic",
+    },
+    card: {
+      backgroundColor: theme.tabBarStyle,
     },
   });
 
@@ -125,16 +128,16 @@ export const CheckerProfile = () => {
           />
         </View>
         <Text style={styles.title}>Mi perfil</Text>
-        <Text style={styles.text}>Correo</Text>
+        <Text style={styles.text}>Contraseña actual</Text>
         <TextInput style={styles.input} />
-        <Text style={styles.text}>Contraseña</Text>
+        <Text style={styles.text}>Nueva contraseña</Text>
         <TextInput style={styles.input} secureTextEntry />
-        <Text style={styles.text}>Confirmar contraseña</Text>
+        <Text style={styles.text}>Numero telefónico</Text>
         <TextInput style={styles.input} secureTextEntry />
         <TouchableOpacity style={styles.button}>
           <Text style={styles.textButton}>Guardar</Text>
-      </TouchableOpacity>
-    </View>
-    </SafeAreaView >
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 };
