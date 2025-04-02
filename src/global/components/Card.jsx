@@ -7,15 +7,18 @@ export const Card = ({ nombre, disponibles, imagen }) => {
 
   const styles = StyleSheet.create({
     imgCard: {
-      width: 122,
-      height: 64,
+      width: 140,
+      height: 75,
       borderRadius: 20,
+      resizeMode:'cover'
     },
     disCard: {
       color: "#999999",
+      fontFamily:"Century Gothic"
     },
     nameCard: {
-      color: "#FFFFFF",
+      color: theme.textColor,
+      fontFamily:"Century Gothic Bold"
     },
     card: {
       fontSize: 12,

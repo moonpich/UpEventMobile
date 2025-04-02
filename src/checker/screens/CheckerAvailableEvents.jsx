@@ -34,7 +34,7 @@ export const CheckerAvailableEvents = () => {
       margin: 10,
     },
     text: {
-      fontSize: 16,
+      fontSize: 22,
       textAlign: "center",
       color: theme.text,
       fontFamily: "Century Gothic Bold",

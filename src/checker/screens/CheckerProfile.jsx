@@ -37,6 +37,8 @@ export const CheckerProfile = () => {
       padding: 5,
       fontSize: 16,
       color: theme.textColor,
+      fontFamily: "Century Gothic",
+
     },
     containerProfile: {
       flex: 1,
@@ -64,6 +66,12 @@ export const CheckerProfile = () => {
       fontSize: 16,
       color: theme.textColor,
       margin: 10,
+      fontFamily: "Century Gothic",
+    },
+    textButton: {
+      fontSize: 20,
+      color: theme.textColor,
+      margin: 10,
       fontFamily: "Century Gothic Bold",
     },
     title: {
@@ -71,6 +79,7 @@ export const CheckerProfile = () => {
       color: theme.textColor,
       textAlign: "center",
       margin: 10,
+      fontFamily: "Century Gothic Bold"
     },
     button: {
       backgroundColor: "#6B2376",
@@ -80,6 +89,7 @@ export const CheckerProfile = () => {
       justifyContent: "center",
       textColor: "#F7EBF9",
       margin: 20,
+      fontFamily: "Century Gothic"
     },
   });
 
@@ -121,16 +131,10 @@ export const CheckerProfile = () => {
         <TextInput style={styles.input} secureTextEntry />
         <Text style={styles.text}>Confirmar contraseña</Text>
         <TextInput style={styles.input} secureTextEntry />
-        <TouchableOpacity>
-          <Button
-            style={styles.button}
-            labelStyle={{ fontSize: 16 }}
-            theme={{ colors: { primary: "#F7EBF9" } }}
-          >
-            Guardar
-          </Button>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.textButton}>Guardar</Text>
+      </TouchableOpacity>
+    </View>
+    </SafeAreaView >
   );
 };
