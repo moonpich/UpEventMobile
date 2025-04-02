@@ -4,7 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 
 export const LoginRequest = async (email, password) => {
   try {
-    const response = await api.post("/api/auth/login", { email, password }, { withCredentials: true });
+    const response = await api.post("/auth/login", { email, password }, { withCredentials: true });
 
     if (response.status === 200 && response.data.type === "SUCCESS") {
       console.log("Headers recibidos:", response.headers);

@@ -9,7 +9,7 @@ const logoUp = () => {
 };
 
 export function SavedEvent({ route }) {
-  const { id, nombre, disponibles, talleres, imagen } = route.params;
+  const { id, name, startDate, endDate, workshops, frontPage} = route.params;
   const navigation = useNavigation(); 
 
   return (
@@ -18,14 +18,14 @@ export function SavedEvent({ route }) {
         <Image style={styles.logo} source={logoUp()} />
       </View>
       <View style={styles.card}>
-        <Text style={styles.nameCard}>{nombre}</Text>
-        <Text style={styles.disCard}>Cupos disponibles: {disponibles}</Text>
+        <Text style={styles.nameCard}>{name}</Text>
+        <Text style={styles.disCard}>Del {startDate} al {endDate}</Text>
         <View style={styles.imageContainer}>
-          <Image style={styles.imgCard} source={{uri: imagen}} />
+          <Image style={styles.imgCard} source={{uri: frontPage}} />
       </View>
       <Text style={styles.talleresTitle}>Talleres:</Text>
         <FlatList
-            data={talleres}
+            data={workshops}
             keyExtractor={(item) => String(item.id)}
             style={{width:"100%"}}
             renderItem={({ item }) => (
