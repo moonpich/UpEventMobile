@@ -10,9 +10,8 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { EventoCard } from "../components/Card";
-import eventos from "../../global/data/data";
 import { AuthContext } from "../../global/context/AuthContext";
-import { getsaveEvents } from "../../global/data/apiUser";
+import { getSaveEvents } from "../../global/data/apiUser";
 
 const logoUp = () => {
   return require("../../../assets/splash.png");
@@ -28,7 +27,8 @@ export function SaveEvents() {
     console.log("useEffect llamado");
     const fetchEvents = async () => {
       try {
-        const data = await getsaveEvents(email);
+        const data = await getSaveEvents(email);
+        console.log(data);
         setEvents(data);
       } catch (error) {
         console.log("Error obteniendo los eventos", error);
@@ -47,24 +47,26 @@ export function SaveEvents() {
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <FlatList
           data={events}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.event.id}
           renderItem={({ item }) => (
             <TouchableHighlight
               underlayColor="#333333"
               onPress={() =>
                 navigation.navigate("SavedEvent", {
-                  id: item.id,
-                  nombre: item.name,
-                  disponibles: item.disponibles,
-                  talleres: item.talleres,
-                  imagen: item.imagen,
+                  id: item.event.id,
+                  nombre: item.event.name,
+                  startDate: item.event.startDate,
+                  endDate: item.event.endDate,
+                  workshops: item.event.workshops,
+                  frontPage: item.event. frontPage,
                 })
               }
             >
               <EventoCard
-                nombre={item.nombre}
-                disponibles={item.disponibles}
-                imagen={item.imagen}
+                name={item.event.name}
+                startDate={item.event.startDate}
+                endDate={item.event.endDate}
+                frontPage={item.event.frontPage}
               />
             </TouchableHighlight>
           )}

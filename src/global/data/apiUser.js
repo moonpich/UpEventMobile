@@ -24,7 +24,7 @@ export const getEvents = async () => {
     const access_token = await SecureStore.getItemAsync("access_token");
     console.log("Token Guardado:", access_token);
 
-    const response = await api.get("/api/event/events", {
+    const response = await api.get("/event/events", {
       headers: {
         Authorization: `Bearer ${access_token}`,
       },
@@ -43,7 +43,7 @@ export const registerEvent = async (idEvent, email) => {
     const access_token = await SecureStore.getItemAsync("access_token");
     console.log("Token Guardado:", access_token);
     console.log(idEvent);
-    const response = await api.post("/api/registration/event-register/movil", {
+    const response = await api.post("/registration/event-register/movil", {
       email,
       idEvent,
     });
@@ -58,24 +58,19 @@ export const registerEvent = async (idEvent, email) => {
   }
 };
 
-export const getsaveEvents = async (email) => {
+export const getSaveEvents = async (email) => {
   try {
-    const response = await api.post("/api/registration/own", { email });
-    console.log(response.data);
-    return response.data.result;
+    const response = await api.post("/registration/own", { email });
+    //console.log(response.data.result);
+    const listEvent =  response.data.result;
+    return listEvent; 
+    /*listEvent.map(({event: {id, name, description, startDate,endDate, status}}) => {
+      console.table({id, name, description, startDate
+        , endDate, status
+      });
+    });*/
   } catch (error) {
     console.log("No hay eventos almacenados", error);
-    return;
-  }
-};
-
-export const getsaveEventsTwo = async (id) => {
-  try {
-    const response = await api.post(`/api/event/events/{id}`);
-    console.log("Evento de id", response.data);
-    return;
-  } catch (error) {
-    console.log("Errores raros de la 1:30", error);
-    return;
+    return null;
   }
 };
