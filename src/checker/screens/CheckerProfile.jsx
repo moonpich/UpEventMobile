@@ -70,7 +70,7 @@ export const CheckerProfile = () => {
     },
     textButton: {
       fontSize: 20,
-      color: theme.textColor,
+      color: "#F1F1F1",
       margin: 10,
       fontFamily: "Century Gothic Bold",
     },
@@ -87,7 +87,7 @@ export const CheckerProfile = () => {
       alignItems: "center",
       display: "flex",
       justifyContent: "center",
-      textColor: theme.textColor,
+      textColor: "#F1F1F1",
       margin: 20,
       fontFamily: "Century Gothic",
     },
@@ -123,7 +123,7 @@ export const CheckerProfile = () => {
         >
           <CircleUserRound
             size={195}
-            color={theme.textColor}
+            color={theme.iconProfile}
             strokeWidth={0.5}
           />
         </View>

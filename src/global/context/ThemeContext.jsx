@@ -9,6 +9,7 @@ const lightTheme = {
   navIconColorActive: "#6B2376",
   backgroundSearch: "#C955DD",
   backgroundCard: "#F1F1F1",
+  iconProfile: "#B23BC4",
 };
 
 const darkTheme = {
@@ -18,6 +19,7 @@ const darkTheme = {
   navIconColorInactive: "#FFFFFF",
   navIconColorActive: "#6B2376",
   backgroundCard: "#0e0e0e",
+  iconProfile: "#00C3FF",
 };
 
 // Creamos un contexto
