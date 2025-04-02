@@ -132,7 +132,7 @@ export const CheckerProfile = () => {
         <TextInput style={styles.input} />
         <Text style={styles.text}>Nueva contraseña</Text>
         <TextInput style={styles.input} secureTextEntry />
-        <Text style={styles.text}>Numero telefónico</Text>
+        <Text style={styles.text}>Número telefónico</Text>
         <TextInput style={styles.input} secureTextEntry />
         <TouchableOpacity style={styles.button}>
           <Text style={styles.textButton}>Guardar</Text>

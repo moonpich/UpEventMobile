@@ -1,5 +1,13 @@
 import React from "react";
-import {StyleSheet, SafeAreaView, Image, View, Text, TextInput, TouchableOpacity} from "react-native";
+import {
+  StyleSheet,
+  SafeAreaView,
+  Image,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import { CircleUserRound, LogOut } from "lucide-react-native";
 import { useTheme } from "../../global/context/ThemeContext";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -29,7 +37,7 @@ export const Profile = () => {
       padding: 5,
       fontSize: 16,
       color: theme.textColor,
-      fontFamily:"Century Gothic Bold"
+      fontFamily: "Century Gothic Bold",
     },
     containerProfile: {
       flex: 1,
@@ -57,14 +65,14 @@ export const Profile = () => {
       fontSize: 16,
       color: theme.textColor,
       margin: 10,
-      fontFamily:"Century Gothic Bold"
+      fontFamily: "Century Gothic Bold",
     },
     title: {
       fontSize: 25,
       color: theme.textColor,
       textAlign: "center",
       margin: 10,
-      fontFamily:"Century Gothic Bold"
+      fontFamily: "Century Gothic Bold",
     },
     button: {
       backgroundColor: "#6B2376",
@@ -74,7 +82,7 @@ export const Profile = () => {
       justifyContent: "center",
       textColor: "#F7EBF9",
       margin: 20,
-      fontFamily:"Century Gothic Bold"
+      fontFamily: "Century Gothic Bold",
     },
   });
 
@@ -110,11 +118,11 @@ export const Profile = () => {
           />
         </View>
         <Text style={styles.title}>Mi perfil</Text>
-        <Text style={styles.text}>Correo</Text>
+        <Text style={styles.text}>Contraseña actual</Text>
         <TextInput style={styles.input} />
-        <Text style={styles.text}>Contraseña</Text>
+        <Text style={styles.text}>Nueva contraseña</Text>
         <TextInput style={styles.input} secureTextEntry />
-        <Text style={styles.text}>Confirmar contraseña</Text>
+        <Text style={styles.text}>Número telefónico</Text>
         <TextInput style={styles.input} secureTextEntry />
         <TouchableOpacity>
           <Button
