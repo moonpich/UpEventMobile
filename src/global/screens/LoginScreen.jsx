@@ -29,7 +29,6 @@ const LoginScreen = () => {
       <View style={styles.loginContainer}>
         <Text style={styles.title}>Iniciar Sesión</Text>
 
-        {/* Campo de Correo */}
         <View>
           <Text style={styles.label}>
             Correo <Text style={styles.labelImportant}>*</Text>
@@ -44,7 +43,6 @@ const LoginScreen = () => {
           />
         </View>
 
-        {/* Campo de Contraseña */}
         <View>
           <Text style={styles.label}>
             Contraseña <Text style={styles.labelImportant}>*</Text>
@@ -70,7 +68,6 @@ const LoginScreen = () => {
           </View>
         </View>
 
-        {/* Botón de Iniciar Sesión */}
         <TouchableOpacity
           style={styles.button}
           onPress={() => login({ email: username, password: password })}
@@ -129,6 +126,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     position: "relative",
+    height: 40,
+    justifyContent: "center",
   },
   inputPassword: {
     color: "#F2F2F2",
@@ -143,8 +142,8 @@ const styles = StyleSheet.create({
   eyeButton: {
     position: "absolute",
     right: 10,
-    top: 10,
-    padding: 5,
+    top: 5,
+    paddingHorizontal: 10,
   },
   button: {
     textAlign: "center",
