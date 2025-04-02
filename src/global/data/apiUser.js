@@ -58,13 +58,24 @@ export const registerEvent = async (idEvent, email) => {
   }
 };
 
-export const SaveEvents = async (email) => {
+export const getsaveEvents = async (email) => {
   try {
     const response = await api.post("/api/registration/own", { email });
     console.log(response.data);
-    return;
+    return response.data.result;
   } catch (error) {
     console.log("No hay eventos almacenados", error);
+    return;
+  }
+};
+
+export const getsaveEventsTwo = async (id) => {
+  try {
+    const response = await api.post(`/api/event/events/{id}`);
+    console.log("Evento de id", response.data);
+    return;
+  } catch (error) {
+    console.log("Errores raros de la 1:30", error);
     return;
   }
 };
