@@ -61,7 +61,7 @@ export const registerEvent = async (idEvent, email) => {
 export const getSaveEvents = async (email) => {
   try {
     const response = await api.post("/registration/own", { email });
-    //console.log(response.data.result);
+    console.log( "Headers de obtener eventos", response.headers);
     const listEvent =  response.data.result;
     return listEvent; 
     /*listEvent.map(({event: {id, name, description, startDate,endDate, status}}) => {
@@ -71,6 +71,31 @@ export const getSaveEvents = async (email) => {
     });*/
   } catch (error) {
     console.log("No hay eventos almacenados", error);
+    return null;
+  }
+};
+
+export const registerWorkshop = async (email, idWorkshop) =>{
+  try{
+    const response = await api.post("/registration/workshop-register", {email, idWorkshop});
+    console.log(response.data);
+    Toast.show({
+      type:"success",
+      text1: response.data.message
+    })
+    return;
+  }catch(error){
+    console.log(error);
+    return;
+  }
+};
+
+export const getUser= async (email) => {
+  try {
+    const response = await api.post("/user/profile", { email });
+    console.log(response.data);
+  } catch (error) {
+    console.log(error);
     return null;
   }
 };

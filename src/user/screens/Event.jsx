@@ -2,7 +2,7 @@ import React, { useState, useRef, useContext} from 'react';
 import { StyleSheet, Image, View, Text, FlatList, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CalendarPlus } from "lucide-react-native";
-import { generarYEnviarQR } from "../../global/data/apiUser";
+import { registerWorkshop } from '../../global/data/apiUser';
 import { registerEvent } from '../../global/data/apiUser';
 import { AuthContext } from '../../global/context/AuthContext';
 const logoUp = () => {
@@ -45,7 +45,7 @@ export function Event({ route }) {
                   Disponibilidad: {item.capacity}
                 </Text>
               </View>
-              <TouchableOpacity onPress={() => generarYEnviarQR(id, item.id, item.name)}>
+              <TouchableOpacity onPress={() => registerWorkshop(user.email, item.id)}>
                 <CalendarPlus color={"#F7EBF9"} size={32} style={styles.icon} />
               </TouchableOpacity>
             </View>
