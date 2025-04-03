@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   TouchableHighlight,
   StyleSheet,
@@ -7,12 +7,11 @@ import {
   View,
   Text,
   FlatList,
-  TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import { EventoCard } from "../components/Card";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useTheme } from "../../global/context/ThemeContext";
-import Icon from "react-native-vector-icons/Ionicons";
 import { getEvents } from "../../global/data/apiUser";
 const logoUp = () => {
   return require("../../../assets/splash.png");
@@ -20,7 +19,7 @@ const logoUp = () => {
 
 export const AvailableEvents = () => {
   const navigation = useNavigation();
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
 
   const styles = StyleSheet.create({
     containerButton: {
@@ -49,20 +48,23 @@ export const AvailableEvents = () => {
   });
 
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    console.log("useEffect llamado");
-    const fetchEvents = async () => {
-      try {
-        const data = await getEvents();
-        setEvents(data);
-      } catch (error) {
-        console.log("Error obteniendo los eventos", error);
-      }
-    };
-
-    fetchEvents();
+  const fetchEvents = useCallback(async () => {
+    setLoading(true);
+    try {
+      console.log("Actualizando eventos...");
+      const data = await getEvents();
+      setEvents(data || []);
+    } catch (error) {
+      console.log("Error obteniendo los eventos", error);
+      setEvents([])
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useFocusEffect(useCallback(() => { fetchEvents(); }, [fetchEvents]));
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -70,34 +72,42 @@ export const AvailableEvents = () => {
         <Image style={styles.logo} source={logoUp()} />
       </View>
       <Text style={styles.text}>Eventos Disponibles</Text>
+
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <FlatList
-          data={events}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <TouchableHighlight
-              underlayColor="#333333"
-              onPress={() =>
-                navigation.navigate("Event", {
-                  id: item.id,
-                  name: item.name,
-                  startDate: item.startDate,
-                  endDate: item.endDate,
-                  workshops: item.workshops,
-                  frontPage: item.frontPage,
-                })
-              }
-            >
-              <EventoCard
-                name={item.name}
-                startDate={item.startDate}
-                endDate={item.endDate}
-                frontPage={item.frontPage}
-              />
-            </TouchableHighlight>
-          )}
-          numColumns={2}
-        />
+        {loading ? (
+          <ActivityIndicator size="large" color={theme.textColor} />
+        ) : events.length === 0 ? (
+          <Text style={{ color: theme.textColor, fontFamily: 'Century Gothic Bold' }}>
+            No hay eventos disponibles
+          </Text>
+        ) : (
+          <FlatList
+            data={events}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <TouchableHighlight
+                underlayColor="#333333"
+                onPress={() =>
+                  navigation.navigate("Event", {
+                    id: item.id,
+                    name: item.name,
+                    startDate: item.startDate,
+                    endDate: item.endDate,
+                    workshops: item.workshops,
+                    frontPage: item.frontPage,
+                  })
+                }
+              >
+                <EventoCard
+                  name={item.name}
+                  startDate={item.startDate}
+                  endDate={item.endDate}
+                  frontPage={item.frontPage}
+                />
+              </TouchableHighlight>
+            )}
+            numColumns={2} />
+        )}
       </View>
     </SafeAreaView>
   );
