@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -14,13 +14,21 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { Button } from "react-native-paper";
 import { AuthContext } from "../../global/context/AuthContext";
 import { useContext } from "react";
+import { profile } from "../../global/data/apiChecker";
+import { partialUser } from "../../global/schemas/schemas";
 const logoUp = () => {
   return require("../../../assets/splash.png");
 };
 
 export const CheckerProfile = () => {
   const { theme, toggleTheme } = useTheme();
-  const { logout } = useContext(AuthContext);
+  const {
+    logout,
+    user: { email },
+  } = useContext(AuthContext);
+  const [info, setInfo] = useState({
+    phone: "No hay telefono",
+  });
 
   const styles = StyleSheet.create({
     containerButton: {
@@ -95,7 +103,17 @@ export const CheckerProfile = () => {
       backgroundColor: theme.tabBarStyle,
     },
   });
-
+  useEffect(() => {
+    const request = async () => {
+      const requestProfile = await profile({ email: email });
+      if (!requestProfile) {
+        return;
+      }
+      const { phone } = requestProfile;
+      setInfo({ phone: phone });
+    };
+    request();
+  }, []);
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.containerButton}>
@@ -133,7 +151,7 @@ export const CheckerProfile = () => {
         <Text style={styles.text}>Nueva contraseña</Text>
         <TextInput style={styles.input} secureTextEntry />
         <Text style={styles.text}>Número telefónico</Text>
-        <TextInput style={styles.input} secureTextEntry />
+        <TextInput style={styles.input} placeholder={info.phone} />
         <TouchableOpacity style={styles.button}>
           <Text style={styles.textButton}>Guardar</Text>
         </TouchableOpacity>

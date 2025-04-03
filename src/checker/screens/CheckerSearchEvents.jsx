@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -12,11 +12,17 @@ import { Search } from "lucide-react-native";
 import eventos from "../../global/data/data";
 import { Card } from "../../global/components/Card";
 import { useTheme } from "../../global/context/ThemeContext";
-
+import { AuthContext } from "../../global/context/AuthContext";
+import { partialUser } from "../../global/schemas/schemas";
+import { AssignedEvents } from "../../global/data/apiChecker";
 const logoUp = () => require("../../../assets/splash.png");
 
 export const CheckerSearchEvents = () => {
   const { theme } = useTheme();
+  const {
+    user: { email },
+  } = useContext(AuthContext);
+  const [assigndEvents, setAssignedEvents] = useState([]);
   const styles = StyleSheet.create({
     containerSearch: {
       flexDirection: "row",
@@ -67,7 +73,20 @@ export const CheckerSearchEvents = () => {
   const filteredEvents = eventos.filter((event) =>
     event.nombre.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
+  useEffect(() => {
+    const validUser = partialUser({ user: email });
+    if (!validUser.success) {
+      setAssignedEvents([]);
+    }
+    const request = async () => {
+      const assignedEventRequest = await AssignedEvents({ email: email });
+      if (assignedEventRequest.length === 0) {
+        setAssignedEvents([]);
+      }
+      setAssignedEvents(assignedEventRequest);
+    };
+    request();
+  }, []);
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -87,19 +106,30 @@ export const CheckerSearchEvents = () => {
       </View>
 
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <FlatList
-          data={filteredEvents}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <Card
-              nombre={item.nombre}
-              disponibles={item.disponibles}
-              imagen={item.imagen}
-              style={theme.tabBarStyle}
-            />
-          )}
-          numColumns={2}
-        />
+        {assigndEvents.length === 0 ? (
+          <Card
+            nombre={"No tienes eventos disponibles"}
+            startDate={""}
+            endDate={""}
+            imagen={""}
+            style={theme.tabBarStyle}
+          />
+        ) : (
+          <FlatList
+            data={assigndEvents}
+            keyExtractor={(item) => item.event.id}
+            renderItem={({ item }) => (
+              <Card
+                nombre={item.event.nombre}
+                startDate={item.event.startDate}
+                endDate={item.event.endDate}
+                imagen={item.event.frontPage}
+                style={theme.tabBarStyle}
+              />
+            )}
+            numColumns={2}
+          />
+        )}
       </View>
     </SafeAreaView>
   );
