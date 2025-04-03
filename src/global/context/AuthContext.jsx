@@ -11,10 +11,6 @@ export const AuthProvider = ({ children }) => {
       const role = await LoginRequest(email, password);
 
       if (!role) {
-        Toast.show({
-          type:"error",
-          text1:"Credenciales invalidas"
-        })
         return;
       }
 
