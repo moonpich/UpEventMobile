@@ -3,26 +3,22 @@ import api from "../../config/api";
 import * as SecureStore from "expo-secure-store";
 import Toast from "react-native-toast-message";
 
-export const generarYEnviarQR = async (id_event, id_workshop, name) => {
+export const generarYEnviarQR = async (email, idEvent, event, workshop) => {
   try {
     const response = await api.post("/qr/send", {
-      email: "20233tn092@utez.edu.mx",
-      id_user: "1",
-      id_event: id_event,
-      id_workshop: id_workshop,
-      name: name,
+      email,
+      idEvent,
+      event,
+      workshop
     });
-
-    Alert.alert("QR Enviado", "Revisa tu correo para recibir el QR.");
   } catch (error) {
-    Alert.alert("Error", "No se pudo enviar el QR.");
+    console.log(error);
   }
 };
 
 export const getEvents = async () => {
   try {
     const access_token = await SecureStore.getItemAsync("access_token");
-    console.log("Token Guardado:", access_token);
 
     const response = await api.get("/event/events", {
       headers: {
@@ -41,11 +37,14 @@ export const getEvents = async () => {
 export const registerEvent = async (idEvent, email) => {
   try {
     const access_token = await SecureStore.getItemAsync("access_token");
-    console.log("Token Guardado:", access_token);
-    console.log(idEvent);
+
     const response = await api.post("/registration/event-register/movil", {
       email,
       idEvent,
+    }, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
     });
     console.log(response.status);
     return Toast.show({
@@ -60,10 +59,17 @@ export const registerEvent = async (idEvent, email) => {
 
 export const getSaveEvents = async (email) => {
   try {
-    const response = await api.post("/registration/own", { email });
-    console.log( "Headers de obtener eventos", response.headers);
-    const listEvent =  response.data.result;
-    return listEvent; 
+
+    const access_token = await SecureStore.getItemAsync("access_token");
+
+    const response = await api.post("/registration/own", { email }, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+    console.log("Headers de obtener eventos", response.headers);
+    const listEvent = response.data.result;
+    return listEvent;
     /*listEvent.map(({event: {id, name, description, startDate,endDate, status}}) => {
       console.table({id, name, description, startDate
         , endDate, status
@@ -75,29 +81,39 @@ export const getSaveEvents = async (email) => {
   }
 };
 
-export const registerWorkshop = async (email, idWorkshop) =>{
-  try{
-    const response = await api.post("/registration/workshop-register", {email, idWorkshop});
+export const registerWorkshop = async (email, idWorkshop, idEvent, event, workshop) => {
+  try {
+    const response = await api.post("/registration/workshop-register", { email, idWorkshop }, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
     console.log(response.data);
+
+    await generarYEnviarQR(email, idEvent, event, workshop);
+
     Toast.show({
-      type:"success",
-      text1: response.data.message
+      type: "success",
+      text1: response.data.message,
+      text2:"Hemos enviado un correo con tu QR de acceso"
     })
     return;
-  }catch(error){
+  } catch (error) {
     console.log(error);
     return;
   }
 };
 
-export const getUser= async (email) => {
+export const getUser = async (email) => {
   try {
     const access_token = await SecureStore.getItemAsync("access_token");
     console.log("Token Guardado:", access_token);
 
-    const response = await api.post("/user/profile", {email}, {headers: {
-      Authorization: `Bearer ${access_token}`,
-    },});
+    const response = await api.post("/user/profile", { email }, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
     console.log(response.data);
     return response.data.result
   } catch (error) {
@@ -106,29 +122,31 @@ export const getUser= async (email) => {
   }
 };
 
-export const updateProfile = async (email, phone, password) =>{
-  try{
+export const updateProfile = async (email, phone, password) => {
+  try {
     const access_token = await SecureStore.getItemAsync("access_token");
     console.log("Token Guardado:", access_token);
 
     let updateData = { email, phone };
 
     if (password && password.trim() !== "") {
-      updateData.password = password; 
+      updateData.password = password;
     }
     console.log(updateData);
 
-    const response = await api.patch("/user/update", updateData, {headers: {
-      Authorization: `Bearer ${access_token}`,
-    },});
+    const response = await api.patch("/user/update", updateData, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
 
     console.log(response.data);
     Toast.show({
-      type:"success",
+      type: "success",
       text1: response.data.message
     })
     return;
-  }catch(error){
+  } catch (error) {
     console.log(response.data.result);
     console.log(error);
     return;

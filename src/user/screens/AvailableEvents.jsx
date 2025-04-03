@@ -42,7 +42,7 @@ export const AvailableEvents = () => {
     text: {
       fontSize: 22,
       textAlign: "center",
-      color: "#B3B3B3",
+      color: theme.textColor,
       fontFamily: "Century Gothic Bold",
     },
   });

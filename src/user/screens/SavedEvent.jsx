@@ -3,6 +3,7 @@ import { StyleSheet, Image, View, Text, FlatList, TouchableHighlight } from "rea
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CalendarHeart } from "lucide-react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useTheme } from "../../global/context/ThemeContext";
 
 const logoUp = () => {
   return require("../../../assets/splash.png");
@@ -11,6 +12,82 @@ const logoUp = () => {
 export function SavedEvent({ route }) {
   const { id, name, startDate, endDate, workshops, frontPage} = route.params;
   const navigation = useNavigation(); 
+    const { theme } = useTheme();
+  
+    const styles = StyleSheet.create({
+      safeArea: {
+        flex: 1,
+        padding: 25,
+        backgroundColor: theme.background,
+        alignItems: "center",
+      },
+      container: {
+        alignItems: "center",
+      },
+      logo: {
+        width: 145,
+        height: 35,
+        margin: 10,
+      },
+      card: {
+        width: "100%",
+        backgroundColor: theme.backgroundCard,
+        borderRadius: 12,
+        padding: 15,
+        overflow: "hidden",
+      },
+      nameCard: {
+        color: theme.textColor,
+        fontSize: 16,
+        fontWeight: "bold",
+        marginBottom: 5,
+      },
+      disCard: {
+        color: "#999999",
+        fontSize: 14,
+        marginBottom: 10,
+      },
+      imageContainer: {
+        alignItems: "center",
+        padding: 10,
+      },
+      imgCard: {
+        width: "100%",
+        height: 150,
+        resizeMode: "cover",
+        borderRadius: 10,
+      },
+      talleresTitle: {
+        fontSize: 16,
+        color: theme.textColor,
+        fontWeight: "bold",
+        marginTop: 10,
+      },
+      talleres: {
+        backgroundColor: "#6B2376",
+        height: 67,
+        width: "100%",
+        marginVertical: 5,
+        borderRadius: 12,
+        padding: 10,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+      },
+      tallerText: {
+        fontSize: 13,
+        color: "#FFFFFF",
+        fontWeight: "bold",
+      },
+      tallerCupo: {
+        fontSize: 13,
+        color: theme.textColor,
+      },
+      icon: {
+        alignSelf: "center",
+      },
+    });
+    
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -29,12 +106,12 @@ export function SavedEvent({ route }) {
             keyExtractor={(item) => String(item.id)}
             style={{width:"100%"}}
             renderItem={({ item }) => (
-            <TouchableHighlight onPress={() => navigation.navigate("Access", {id_event:id, id_workshop:item.id,  nombre: item.nombre, disponibles: item.disponibles, imagen:item.imagen })}>
+            <TouchableHighlight onPress={() => navigation.navigate("Access", {idEvent:id, event: name, workshop: item.name})}>
                 <View style={styles.talleres}>
                 <View style={{flex:1}}>
-                  <Text style={styles.tallerText}>{item.nombre}</Text>
+                  <Text style={styles.tallerText}>{item.name}</Text>
                   <Text style={styles.tallerCupo}>
-                    Disponibilidad: {item.cupo}
+                    Disponibilidad: {item.capacity}
                   </Text>
                 </View>
                 <CalendarHeart color={"#F7EBF9"} size={32} style={styles.icon} />

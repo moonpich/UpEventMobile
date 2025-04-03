@@ -12,17 +12,41 @@ import { useNavigation } from "@react-navigation/native";
 import { EventoCard } from "../components/Card";
 import { AuthContext } from "../../global/context/AuthContext";
 import { getSaveEvents } from "../../global/data/apiUser";
+import { useTheme } from "../../global/context/ThemeContext";
 
 const logoUp = () => {
   return require("../../../assets/splash.png");
 };
 
 export function SaveEvents() {
+  const { theme, toggleTheme } = useTheme();
   const navigation = useNavigation();
   const { user } = useContext(AuthContext);
   const [events, setEvents] = useState([]);
   const email = user.email;
 
+  const styles = StyleSheet.create({
+    safeArea: {
+      flex: 1,
+      padding: 25,
+      backgroundColor: theme.background,
+    },
+    container: {
+      alignItems: "center",
+    },
+    logo: {
+      width: 145,
+      height: 35,
+      margin: 10,
+    },
+    text: {
+      fontSize: 22,
+      textAlign: "center",
+      color: theme.textColor,
+    },
+  });
+
+  
   useEffect(() => {
     console.log("useEffect llamado");
     const fetchEvents = async () => {
@@ -54,7 +78,7 @@ export function SaveEvents() {
               onPress={() =>
                 navigation.navigate("SavedEvent", {
                   id: item.event.id,
-                  nombre: item.event.name,
+                  name : item.event.name,
                   startDate: item.event.startDate,
                   endDate: item.event.endDate,
                   workshops: item.event.workshops,
@@ -77,23 +101,3 @@ export function SaveEvents() {
   );
 }
 
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    padding: 25,
-    backgroundColor: "#000000",
-  },
-  container: {
-    alignItems: "center",
-  },
-  logo: {
-    width: 145,
-    height: 35,
-    margin: 10,
-  },
-  text: {
-    fontSize: 22,
-    textAlign: "center",
-    color: "#B3B3B3",
-  },
-});

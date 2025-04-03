@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { EventoCard } from "../components/Card";
 import { Search } from 'lucide-react-native';
 import { getEvents } from "../../global/data/apiUser";
+import { useTheme } from "../../global/context/ThemeContext";
 const logoUp = () => {
   return require("../../../assets/splash.png");
 };
@@ -11,6 +12,50 @@ const logoUp = () => {
 
 export function SearchEvents() {
   const navigation = useNavigation();
+  const { theme } = useTheme();  
+  
+const styles = StyleSheet.create({
+  containerSearch: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: theme.background,
+    borderRadius: 20,
+    height: 40,
+    margin: 12
+  },
+  icon: {
+    marginRight: 5,
+    marginLeft: 10
+  },
+  inputSearch: {
+    flex: 1,
+    fontSize: 16,
+    color: theme.background,
+    fontFamily: "Century Gothic"
+  },
+  safeArea: {
+    flex: 1,
+    padding: 25,
+    backgroundColor: theme.background,
+  },
+  container: {
+    alignItems: "center",
+  },
+  logo: {
+    width: 145,
+    height: 35,
+    margin: 10,
+  },
+  text: {
+    fontSize: 16,
+    textAlign: "center",
+    color: theme.textColor,
+  },
+  searchBar: {
+    backgroundColor: "#0e0e0e",
+    margin: 20,
+  },
+});
   const [searchQuery, setSearchQuery] = useState("");
 
   const [events, setEvents] = useState([]);
@@ -69,46 +114,3 @@ export function SearchEvents() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  containerSearch: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f0f0f0',
-    borderRadius: 20,
-    height: 40,
-    margin: 12
-  },
-  icon: {
-    marginRight: 5,
-    marginLeft: 10
-  },
-  inputSearch: {
-    flex: 1,
-    fontSize: 16,
-    color: '#333',
-    fontFamily: "Century Gothic"
-  },
-  safeArea: {
-    flex: 1,
-    padding: 25,
-    backgroundColor: "#000000",
-  },
-  container: {
-    alignItems: "center",
-  },
-  logo: {
-    width: 145,
-    height: 35,
-    margin: 10,
-  },
-  text: {
-    fontSize: 16,
-    textAlign: "center",
-    color: "#B3B3B3",
-  },
-  searchBar: {
-    backgroundColor: "#0e0e0e",
-    margin: 20,
-  },
-});

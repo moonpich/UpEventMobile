@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Alert } from "react-native";
 import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 
 export default function Scanner() {
   const [facing, setFacing] = useState("back");
@@ -10,6 +11,8 @@ export default function Scanner() {
   const [isCameraActive, setIsCameraActive] = useState(true);
   const [permission, requestPermission] = useCameraPermissions();
   const navigation = useNavigation();
+  const route = useRoute();
+  const datosReferencia = route.params?.referenceData
 
   if (!permission) {
     return <View />;
@@ -39,14 +42,36 @@ export default function Scanner() {
 
   function handleBarCodeScanned({ type, data }) {
     if (!scanned) {
-      setScanned(true);
+      try{
+        setScanned(true);
       setIsCameraActive(false);
-      Alert.alert("Código Escaneado ", `Tipo: ${type}\nDato: ${data}`, [
-        {
-          text: "OK",
-          onPress: () => navigation.navigate("CheckerAvailableEvents"),
-        }, // Volver a encender la cámara
-      ]);
+      
+      const qrData = JSON.parse(data);
+      console.log("Datos del qr: ", qrData);
+
+      const esValido =
+        qrData.idEvent === datosReferencia.idEvent &&
+        qrData.event === datosReferencia.event;
+
+        if (esValido) {
+          Alert.alert(
+            "Acceso Válido",
+            `Código QR escaneado exitosamente.\nEvento: ${qrData.event}`, // Mostramos el nombre del evento
+            [
+              {
+                text: "OK",
+                onPress: () => navigation.navigate("CheckerAvailableEvents"),
+              },
+            ]
+          );
+        } else {
+          Alert.alert("Acceso Denegado", "El QR no coincide con los datos esperados.");
+        }
+      }catch(error){
+        Alert.alert("Error", "QR inválido. No se pudo convertir en JSON.");
+      console.error("Error al parsear JSON:", error);
+      }
+      
     }
   }
 
@@ -58,16 +83,7 @@ export default function Scanner() {
           facing={facing}
           barcodeScannerSettings={{
             barcodeTypes: [
-              "qr",
-              "ean13",
-              "ean8",
-              "upc_a",
-              "upc_e",
-              "code128",
-              "code39",
-              "code93",
-              "itf14",
-              "pdf417",
+              "qr"
             ],
           }}
           onBarcodeScanned={scanned ? undefined : handleBarCodeScanned}

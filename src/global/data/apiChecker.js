@@ -59,3 +59,21 @@ export const profile = async ({ email }) => {
     return false;
   }
 };
+
+export const participantsList = async (idEvent) => {
+  try {
+    const access_token = await SecureStore.getItemAsync("access_token");
+
+    const response = await api.get("/registration/participants/{idEvent}",{
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+    
+    console.log(response.data);
+    return response.data.result
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};

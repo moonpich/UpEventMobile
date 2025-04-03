@@ -83,10 +83,16 @@ export const CheckerAvailableEvents = () => {
           <FlatList
             data={assignedEvents}
             keyExtractor={(item) => item.event.id}
-            renderItem={({ item }) => (
+            renderItem={({ item }) => {
+
+              const datosReferencia = {
+                idEvent: item.event.id,
+                name: item.event.name,
+              };
+              
               <TouchableHighlight
                 underlayColor="#333333"
-                onPress={() => navigation.navigate("Scanner")}
+                onPress={() => navigation.navigate("Scanner", { referenceData: datosReferencia })}
               >
                 <Card
                   nombre={item.event.name}
@@ -96,7 +102,7 @@ export const CheckerAvailableEvents = () => {
                   styles={styles.card}
                 />
               </TouchableHighlight>
-            )}
+            }}
             numColumns={2}
           />
         )}

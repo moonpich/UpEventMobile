@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
   card: {
     fontSize: 12,
-    backgroundColor: theme.tabBarStyle,
+    backgroundColor: theme.backgroundCard,
     borderRadius: 12,
     width: 160,
     height: 163,
