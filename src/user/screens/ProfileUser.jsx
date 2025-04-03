@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -8,12 +8,13 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { CircleUserRound, LogOut } from "lucide-react-native";
+import { CircleUserRound, LogOut, SeparatorHorizontal } from "lucide-react-native";
 import { useTheme } from "../../global/context/ThemeContext";
 import Icon from "react-native-vector-icons/Ionicons";
-import { Button } from "react-native-paper";
 import { AuthContext } from "../../global/context/AuthContext";
 import { useContext } from "react";
+import { getUser } from "../../global/data/apiUser";
+import { updateProfile } from "../../global/data/apiUser";
 const logoUp = () => {
   return require("../../../assets/splash.png");
 };
@@ -85,6 +86,30 @@ export const Profile = () => {
       fontFamily: "Century Gothic Bold",
     },
   });
+  const { user } = useContext(AuthContext);
+  const email = user.email
+
+  const [profile, setProfile] = useState({});
+  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const data = await getUser(user.email);
+        if(data){
+          setProfile(data);
+          setPhone(data.phone || "")
+        }
+      } catch (error) {
+        console.log("Error en perfil", error);
+      }
+    };
+
+    fetchUser();
+  }, [user.email]);
+
+
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -121,17 +146,11 @@ export const Profile = () => {
         <Text style={styles.text}>Contraseña actual</Text>
         <TextInput style={styles.input} />
         <Text style={styles.text}>Nueva contraseña</Text>
-        <TextInput style={styles.input} secureTextEntry />
+        <TextInput style={styles.input} secureTextEntry onChangeText={setPassword} />
         <Text style={styles.text}>Número telefónico</Text>
-        <TextInput style={styles.input} secureTextEntry />
-        <TouchableOpacity>
-          <Button
-            style={styles.button}
-            labelStyle={{ fontSize: 16 }}
-            theme={{ colors: { primary: "#F7EBF9" } }}
-          >
-            Guardar
-          </Button>
+        <TextInput style={styles.input} value={phone} onChangeText={setPhone} />
+        <TouchableOpacity style={styles.button} onPress={() => updateProfile(email, phone, password)}>
+          <Text style={styles.textButton}>Guardar</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

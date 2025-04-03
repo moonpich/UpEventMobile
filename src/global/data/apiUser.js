@@ -113,11 +113,12 @@ export const updateProfile = async (email, phone, password) =>{
 
     let updateData = { email, phone };
 
-    if (password.trim() !== "") {
+    if (password && password.trim() !== "") {
       updateData.password = password; 
     }
+    console.log(updateData);
 
-    const response = await api.post("/user/profile", updateData, {headers: {
+    const response = await api.patch("/user/update", updateData, {headers: {
       Authorization: `Bearer ${access_token}`,
     },});
 
@@ -128,6 +129,7 @@ export const updateProfile = async (email, phone, password) =>{
     })
     return;
   }catch(error){
+    console.log(response.data.result);
     console.log(error);
     return;
   }
