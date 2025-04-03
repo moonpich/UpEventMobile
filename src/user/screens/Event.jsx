@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
           </View>
           <View>
             <TouchableOpacity onPress={() => registerEvent(id, user.email)}>
-              <CalendarPlus color={"#F7EBF9"} size={48} style={styles.icon} />
+              <CalendarPlus color={theme.textColor} size={48} style={styles.icon} />
             </TouchableOpacity>
           </View>
         </View>

@@ -4,6 +4,9 @@ import * as SecureStore from "expo-secure-store";
 import Toast from "react-native-toast-message";
 
 export const generarYEnviarQR = async (email, idEvent, event, workshop) => {
+
+  console.log("entrando a qr");
+
   try {
     const response = await api.post("/qr/send", {
       email,
@@ -11,6 +14,8 @@ export const generarYEnviarQR = async (email, idEvent, event, workshop) => {
       event,
       workshop
     });
+
+    console.log(response.data);
   } catch (error) {
     console.log(error);
   }
@@ -82,6 +87,8 @@ export const getSaveEvents = async (email) => {
 };
 
 export const registerWorkshop = async (email, idWorkshop, idEvent, event, workshop) => {
+  const access_token = await SecureStore.getItemAsync("access_token");
+
   try {
     const response = await api.post("/registration/workshop-register", { email, idWorkshop }, {
       headers: {

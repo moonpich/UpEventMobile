@@ -45,6 +45,8 @@ export default function Scanner() {
       try{
         setScanned(true);
       setIsCameraActive(false);
+
+      console.log(data);
       
       const qrData = JSON.parse(data);
       console.log("Datos del qr: ", qrData);
