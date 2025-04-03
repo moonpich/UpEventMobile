@@ -92,10 +92,43 @@ export const registerWorkshop = async (email, idWorkshop) =>{
 
 export const getUser= async (email) => {
   try {
-    const response = await api.post("/user/profile", { email });
+    const access_token = await SecureStore.getItemAsync("access_token");
+    console.log("Token Guardado:", access_token);
+
+    const response = await api.post("/user/profile", {email}, {headers: {
+      Authorization: `Bearer ${access_token}`,
+    },});
     console.log(response.data);
+    return response.data.result
   } catch (error) {
     console.log(error);
     return null;
   }
 };
+
+export const updateProfile = async (email, phone, password) =>{
+  try{
+    const access_token = await SecureStore.getItemAsync("access_token");
+    console.log("Token Guardado:", access_token);
+
+    let updateData = { email, phone };
+
+    if (password.trim() !== "") {
+      updateData.password = password; 
+    }
+
+    const response = await api.post("/user/profile", updateData, {headers: {
+      Authorization: `Bearer ${access_token}`,
+    },});
+
+    console.log(response.data);
+    Toast.show({
+      type:"success",
+      text1: response.data.message
+    })
+    return;
+  }catch(error){
+    console.log(error);
+    return;
+  }
+}
