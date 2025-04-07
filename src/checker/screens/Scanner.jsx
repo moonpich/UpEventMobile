@@ -4,6 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View, Alert } from "react-native";
 import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
+import { validateQr } from "../../global/data/apiChecker";
 
 export default function Scanner() {
   const [facing, setFacing] = useState("back");
@@ -12,7 +13,6 @@ export default function Scanner() {
   const [permission, requestPermission] = useCameraPermissions();
   const navigation = useNavigation();
   const route = useRoute();
-  const datosReferencia = route.params?.referenceData
 
   if (!permission) {
     return <View />;
@@ -36,44 +36,35 @@ export default function Scanner() {
     );
   }
 
-  function toggleCameraFacing() {
-    setFacing((current) => (current === "back" ? "front" : "back"));
-  }
 
-  function handleBarCodeScanned({ type, data }) {
+  async function handleBarCodeScanned({ type, data }) {
     if (!scanned) {
-      try{
+      try {
         setScanned(true);
-      setIsCameraActive(false);
+        setIsCameraActive(false);
 
-      console.log(data);
-      
-      const qrData = JSON.parse(data);
-      console.log("Datos del qr: ", qrData);
+        console.log(data);
+        try {
+          const qrData = JSON.parse(data);
+          console.log("Datos del qr: ", qrData);
 
-      const esValido =
-        qrData.idEvent === datosReferencia.idEvent &&
-        qrData.event === datosReferencia.event;
+          console.log("email ", qrData.email);
+          console.log("workshop", qrData.idWorkshop);
 
-        if (esValido) {
-          Alert.alert(
-            "Acceso Válido",
-            `Código QR escaneado exitosamente.\nEvento: ${qrData.event}`, // Mostramos el nombre del evento
-            [
-              {
-                text: "OK",
-                onPress: () => navigation.navigate("CheckerAvailableEvents"),
-              },
-            ]
-          );
-        } else {
-          Alert.alert("Acceso Denegado", "El QR no coincide con los datos esperados.");
+          const response = await validateQr(qrData.email, qrData.idWorkshop);
+
+
+        } catch (error) {
+          console.log("error", error)
+        } finally {
+          navigation.navigate("CheckerAvailableEvents");
         }
-      }catch(error){
-        Alert.alert("Error", "QR inválido. No se pudo convertir en JSON.");
-      console.error("Error al parsear JSON:", error);
+
+
+      } catch (error) {
+        console.log(error);
       }
-      
+
     }
   }
 
@@ -93,9 +84,9 @@ export default function Scanner() {
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.button}
-              onPress={toggleCameraFacing}
+              onPress={() => navigation.goBack("ViewDetails")}
             >
-              <Text style={styles.text}>Flip Camera</Text>
+              <Text style={styles.text}>Regresar</Text>
             </TouchableOpacity>
           </View>
         </CameraView>

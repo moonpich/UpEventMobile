@@ -68,10 +68,23 @@ export const Profile = () => {
       margin: 10,
       fontFamily: "Century Gothic Bold",
     },
+    textName: {
+      textAlign: 'center',
+      fontSize: 20,
+      color: theme.textColor,
+      margin: 10,
+      fontFamily: "Century Gothic Bold",
+    },
     title: {
       fontSize: 25,
       color: theme.textColor,
       textAlign: "center",
+      margin: 10,
+      fontFamily: "Century Gothic Bold",
+    },
+    textButton: {
+      fontSize: 20,
+      color: "#F1F1F1",
       margin: 10,
       fontFamily: "Century Gothic Bold",
     },
@@ -83,7 +96,7 @@ export const Profile = () => {
       justifyContent: "center",
       textColor: "#F7EBF9",
       margin: 20,
-      fontFamily: "Century Gothic Bold",
+      fontFamily: "Century Gothic",
     },
   });
   const { user } = useContext(AuthContext);
@@ -97,12 +110,12 @@ export const Profile = () => {
     const fetchUser = async () => {
       try {
         const data = await getUser(user.email);
-        if(data){
+        if (data) {
           setProfile(data);
           setPhone(data.phone || "")
         }
       } catch (error) {
-        console.log("Error en perfil", error);
+        console.log("Error obteniendo datos para el Perfil", error);
       }
     };
 
@@ -129,6 +142,7 @@ export const Profile = () => {
         <Image style={styles.logo} source={logoUp()} />
       </View>
       <View style={styles.containerProfile}>
+        <Text style={styles.title}>Mi perfil</Text>
         <View
           style={{
             justifyContent: "center",
@@ -142,9 +156,7 @@ export const Profile = () => {
             strokeWidth={0.5}
           />
         </View>
-        <Text style={styles.title}>Mi perfil</Text>
-        <Text style={styles.text}>Contraseña actual</Text>
-        <TextInput style={styles.input} />
+        <Text style={styles.textName}>{profile.name} {profile.lastname}</Text>
         <Text style={styles.text}>Nueva contraseña</Text>
         <TextInput style={styles.input} secureTextEntry onChangeText={setPassword} />
         <Text style={styles.text}>Número telefónico</Text>

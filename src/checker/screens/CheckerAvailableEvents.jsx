@@ -8,7 +8,6 @@ import {
   FlatList,
   TouchableHighlight,
 } from "react-native";
-import eventos from "../../global/data/data";
 import { Card } from "../../global/components/Card";
 import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../../global/context/ThemeContext";
@@ -69,39 +68,40 @@ export const CheckerAvailableEvents = () => {
       <Text style={styles.text}>Eventos Asignados</Text>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         {assignedEvents.length === 0 ? (
-          <TouchableHighlight
-            underlayColor="#333333"
-            onPress={() => navigation.navigate("Scanner")}
-          >
-            <Card
-              nombre={"No tienes eventos"}
-              disponibles={0}
-              styles={styles.card}
-            />
-          </TouchableHighlight>
+          <View>
+            <Text style={{ color: theme.textColor, fontFamily: 'Century Gothic Bold', fontSize: 22 }}>
+              No tienes eventos asignados
+            </Text>
+            <TouchableHighlight
+              underlayColor="#333333"
+              onPress={() => navigation.navigate("ViewDetails")}>
+              <Text>Abrir scanner</Text>
+            </TouchableHighlight>
+          </View>
         ) : (
           <FlatList
             data={assignedEvents}
             keyExtractor={(item) => item.event.id}
             renderItem={({ item }) => {
-
-              const datosReferencia = {
-                idEvent: item.event.id,
-                name: item.event.name,
-              };
-              
-              <TouchableHighlight
-                underlayColor="#333333"
-                onPress={() => navigation.navigate("Scanner", { referenceData: datosReferencia })}
-              >
-                <Card
-                  nombre={item.event.name}
-                  startDate={item.event.startDate}
-                  endDate={item.event.endDate}
-                  imagen={item.event.frontPage}
-                  styles={styles.card}
-                />
-              </TouchableHighlight>
+              return (
+                <TouchableHighlight
+                  underlayColor="#333333"
+                  onPress={() => navigation.navigate("ViewDetails", {id: item.event.id,
+                    name: item.event.name,
+                    startDate: item.event.startDate,
+                    endDate: item.event.endDate,
+                    workshops: item.event.workshops,
+                    frontPage: item.event.frontPage,})}
+                >
+                  <Card
+                    nombre={item.event.name}
+                    startDate={item.event.startDate}
+                    endDate={item.event.endDate}
+                    imagen={item.event.frontPage}
+                    styles={styles.card}
+                  />
+                </TouchableHighlight>
+              )
             }}
             numColumns={2}
           />

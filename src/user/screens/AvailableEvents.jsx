@@ -1,14 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  TouchableHighlight,
-  StyleSheet,
-  SafeAreaView,
-  Image,
-  View,
-  Text,
-  FlatList,
-  ActivityIndicator,
-} from "react-native";
+import {TouchableHighlight, StyleSheet, SafeAreaView, Image, View, Text, FlatList, ActivityIndicator} from "react-native";
 import { EventoCard } from "../components/Card";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useTheme } from "../../global/context/ThemeContext";
@@ -77,7 +68,7 @@ export const AvailableEvents = () => {
         {loading ? (
           <ActivityIndicator size="large" color={theme.textColor} />
         ) : events.length === 0 ? (
-          <Text style={{ color: theme.textColor, fontFamily: 'Century Gothic Bold' }}>
+          <Text style={{ color: theme.textColor, fontFamily: 'Century Gothic Bold', fontSize:22 }}>
             No hay eventos disponibles
           </Text>
         ) : (

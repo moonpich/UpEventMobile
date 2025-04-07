@@ -1,19 +1,35 @@
-import React from "react";
+import React,{useContext, useEffect, useState} from "react";
 import { StyleSheet, Image, View, Text, FlatList, TouchableHighlight } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CalendarHeart } from "lucide-react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../../global/context/ThemeContext";
-
+import { savedWorkhops } from "../../global/data/apiUser";
+import { AuthContext } from "../../global/context/AuthContext";
 const logoUp = () => {
   return require("../../../assets/splash.png");
 };
 
 export function SavedEvent({ route }) {
-  const { id, name, startDate, endDate, workshops, frontPage} = route.params;
+  const { id, name, startDate, endDate, frontPage} = route.params;
   const navigation = useNavigation(); 
     const { theme } = useTheme();
-  
+    const { user } = useContext(AuthContext);
+    const [workshops, setWorkshops] = useState([]);
+
+    useEffect(() => {
+      const fetchWorkshops = async () => {
+        try {
+          const data = await savedWorkhops(user.email, id);
+          setWorkshops(data || []);
+          console.log(workshops);
+        } catch (err) {
+          console.log("Error cargando talleres guardados", err);
+        }
+      };
+      fetchWorkshops();
+    }, []);
+    
     const styles = StyleSheet.create({
       safeArea: {
         flex: 1,
@@ -30,6 +46,7 @@ export function SavedEvent({ route }) {
         margin: 10,
       },
       card: {
+        flex:1,
         width: "100%",
         backgroundColor: theme.backgroundCard,
         borderRadius: 12,
@@ -38,14 +55,15 @@ export function SavedEvent({ route }) {
       },
       nameCard: {
         color: theme.textColor,
-        fontSize: 16,
-        fontWeight: "bold",
+        fontSize: 19,
         marginBottom: 5,
+        fontFamily:"Century Gothic Bold"
       },
       disCard: {
         color: "#999999",
-        fontSize: 14,
+        fontSize: 16,
         marginBottom: 10,
+        fontFamily: "Century Gothic"
       },
       imageContainer: {
         alignItems: "center",
@@ -58,9 +76,9 @@ export function SavedEvent({ route }) {
         borderRadius: 10,
       },
       talleresTitle: {
-        fontSize: 16,
+        fontSize: 18,
         color: theme.textColor,
-        fontWeight: "bold",
+        fontFamily: "Century Gothic Bold",
         marginTop: 10,
       },
       talleres: {
@@ -75,13 +93,14 @@ export function SavedEvent({ route }) {
         justifyContent: "space-between",
       },
       tallerText: {
-        fontSize: 13,
-        color: "#FFFFFF",
-        fontWeight: "bold",
+        fontSize: 16,
+        color: theme.textColor,
+        fontFamily: "Century Gothic Bold"
       },
       tallerCupo: {
-        fontSize: 13,
+        fontSize: 14,
         color: theme.textColor,
+        fontFamily: "Century Gothic"
       },
       icon: {
         alignSelf: "center",
@@ -106,7 +125,7 @@ export function SavedEvent({ route }) {
             keyExtractor={(item) => String(item.id)}
             style={{width:"100%"}}
             renderItem={({ item }) => (
-            <TouchableHighlight onPress={() => navigation.navigate("Access", {idEvent:id, event: name, workshop: item.name})}>
+            <TouchableHighlight onPress={() => navigation.navigate("Access", {email: user.email, idEvent:id, event: name, idWorkshop: item.id, workshop: item.name})}>
                 <View style={styles.talleres}>
                 <View style={{flex:1}}>
                   <Text style={styles.tallerText}>{item.name}</Text>

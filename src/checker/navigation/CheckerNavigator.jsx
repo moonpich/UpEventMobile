@@ -3,6 +3,7 @@ import { CheckerAvailableEvents } from "../screens/CheckerAvailableEvents.jsx";
 import { CheckerSearchEvents } from "../screens/CheckerSearchEvents.jsx";
 import { CheckerProfile } from "../screens/CheckerProfile.jsx";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { List } from "../screens/List.jsx";
 import Scanner from "../screens/Scanner.jsx";
 import {
   CalendarDays,
@@ -10,6 +11,7 @@ import {
   ContactRound,
 } from "lucide-react-native";
 import { useTheme } from "../../global/context/ThemeContext.jsx";
+import { ViewDetails } from "../screens/ViewDetails.jsx";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -25,11 +27,10 @@ function AvailableEventsStack() {
         headerTintColor: theme.textColor,
       }}
     >
-      <Stack.Screen
-        name="CheckerAvailableEvents"
-        component={CheckerAvailableEvents}
-      />
+      <Stack.Screen name="CheckerAvailableEvents" component={CheckerAvailableEvents}/>
+      <Stack.Screen name="ViewDetails" component={ViewDetails}/>
       <Stack.Screen name="Scanner" component={Scanner} />
+      <Stack.Screen name="List" component={List} />
     </Stack.Navigator>
   );
 }

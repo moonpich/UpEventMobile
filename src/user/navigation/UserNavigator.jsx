@@ -38,7 +38,7 @@ function SaveEventsStack() {
 function SearchEventsStack() {
   const { theme } = useTheme(); 
   return (
-    <Stack.Navigator screenOptions={{headerShown: true, headerTitle: "", headerStyle: {backgroundColor: "#000000"}, headerTintColor: "#FFFFFF"}}>
+    <Stack.Navigator screenOptions={{headerShown: true, headerTitle: "", headerTransparent:true, headerTintColor: theme.textColor}}>
       <Stack.Screen name="SearchEvents" component={SearchEvents} />
       <Stack.Screen name="Event" component={Event} />
     </Stack.Navigator>

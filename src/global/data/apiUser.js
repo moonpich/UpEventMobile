@@ -1,10 +1,8 @@
-import { Alert } from "react-native";
 import api from "../../config/api";
 import * as SecureStore from "expo-secure-store";
 import Toast from "react-native-toast-message";
 
-export const generarYEnviarQR = async (email, idEvent, event, workshop) => {
-
+export const generarYEnviarQR = async (email, idEvent, event, idWorkshop, workshop) => {
   console.log("entrando a qr");
 
   try {
@@ -12,6 +10,7 @@ export const generarYEnviarQR = async (email, idEvent, event, workshop) => {
       email,
       idEvent,
       event,
+      idWorkshop,
       workshop
     });
 
@@ -73,6 +72,8 @@ export const getSaveEvents = async (email) => {
       },
     });
     console.log("Headers de obtener eventos", response.headers);
+    console.log("Headers de obtener eventos", response.data.result);
+
     const listEvent = response.data.result;
     return listEvent;
     /*listEvent.map(({event: {id, name, description, startDate,endDate, status}}) => {
@@ -86,7 +87,7 @@ export const getSaveEvents = async (email) => {
   }
 };
 
-export const registerWorkshop = async (email, idWorkshop, idEvent, event, workshop) => {
+export const registerWorkshop = async (email, idEvent, event, idWorkshop, workshop) => {
   const access_token = await SecureStore.getItemAsync("access_token");
 
   try {
@@ -95,9 +96,8 @@ export const registerWorkshop = async (email, idWorkshop, idEvent, event, worksh
         Authorization: `Bearer ${access_token}`,
       },
     });
-    console.log(response.data);
 
-    await generarYEnviarQR(email, idEvent, event, workshop);
+    await generarYEnviarQR(email, idEvent, event, idWorkshop, workshop);
 
     Toast.show({
       type: "success",
@@ -107,6 +107,14 @@ export const registerWorkshop = async (email, idWorkshop, idEvent, event, worksh
     return;
   } catch (error) {
     console.log(error);
+
+    if (error.response && error.response.status === 422) {
+      Toast.show({
+        type: "error",
+        text1: "No puedes registrarte al taller.",
+        text2: "Primero debes inscribirte al evento.",
+      });
+    }
     return;
   }
 };
@@ -159,3 +167,14 @@ export const updateProfile = async (email, phone, password) => {
     return;
   }
 }
+
+export const savedWorkhops = async (email, idEvent) =>{
+  try{
+    const response = await api.post("/user-workshops/my-workshops", {email, idEvent});
+    return response.data.result;
+  }catch(error){
+    console.log("Error obteniendo talleres inscritos", error);
+    return null;
+  }
+}
+

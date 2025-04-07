@@ -86,10 +86,18 @@ const styles = StyleSheet.create({
   },
 });
 
-  const { idEvent, event, workshop} = route.params;
+  const { email, idEvent, event, idWorkshop, workshop} = route.params;
+  console.log(email);
+  console.log(idEvent);
+  console.log(event);
+  console.log(idWorkshop);
+  console.log(workshop);
+
   const qrData = {
-    event: event,
+    email: email, 
     idEvent: idEvent,
+    event: event,
+    idWorkshop: idWorkshop,
     workshop: workshop
   };
 

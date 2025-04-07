@@ -102,6 +102,13 @@ export const CheckerProfile = () => {
     card: {
       backgroundColor: theme.tabBarStyle,
     },
+    textName: {
+      textAlign: 'center',
+      fontSize: 20,
+      color: theme.textColor,
+      margin: 10,
+      fontFamily: "Century Gothic Bold",
+    },
   });
   useEffect(() => {
     const request = async () => {
@@ -132,6 +139,7 @@ export const CheckerProfile = () => {
         <Image style={styles.logo} source={logoUp()} />
       </View>
       <View style={styles.containerProfile}>
+      <Text style={styles.title}>Mi perfil</Text> 
         <View
           style={{
             justifyContent: "center",
@@ -145,9 +153,7 @@ export const CheckerProfile = () => {
             strokeWidth={0.5}
           />
         </View>
-        <Text style={styles.title}>Mi perfil</Text>
-        <Text style={styles.text}>Contraseña actual</Text>
-        <TextInput style={styles.input} />
+        <Text style={styles.textName}>{profile.name} {profile.lastname}</Text>
         <Text style={styles.text}>Nueva contraseña</Text>
         <TextInput style={styles.input} secureTextEntry />
         <Text style={styles.text}>Número telefónico</Text>

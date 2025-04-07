@@ -7,9 +7,9 @@ import {
   Text,
   FlatList,
   TextInput,
+  TouchableHighlight
 } from "react-native";
 import { Search } from "lucide-react-native";
-import eventos from "../../global/data/data";
 import { Card } from "../../global/components/Card";
 import { useTheme } from "../../global/context/ThemeContext";
 import { AuthContext } from "../../global/context/AuthContext";
@@ -23,6 +23,12 @@ export const CheckerSearchEvents = () => {
     user: { email },
   } = useContext(AuthContext);
   const [assigndEvents, setAssignedEvents] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredEvents = assigndEvents.filter((event) =>
+    event.nombre.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  
   const styles = StyleSheet.create({
     containerSearch: {
       flexDirection: "row",
@@ -36,7 +42,7 @@ export const CheckerSearchEvents = () => {
     inputSearch: {
       flex: 1,
       fontSize: 16,
-      color: "#333",
+      color: theme.textColor,
       fontFamily: "Century Gothic",
     },
     safeArea: {
@@ -68,11 +74,7 @@ export const CheckerSearchEvents = () => {
     },
   });
 
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const filteredEvents = eventos.filter((event) =>
-    event.nombre.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  
   useEffect(() => {
     const validUser = partialUser({ user: email });
     if (!validUser.success) {
@@ -106,31 +108,46 @@ export const CheckerSearchEvents = () => {
       </View>
 
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        {assigndEvents.length === 0 ? (
-          <Card
-            nombre={"No tienes eventos disponibles"}
-            startDate={""}
-            endDate={""}
-            imagen={""}
-            style={theme.tabBarStyle}
-          />
-        ) : (
-          <FlatList
-            data={assigndEvents}
-            keyExtractor={(item) => item.event.id}
-            renderItem={({ item }) => (
-              <Card
-                nombre={item.event.nombre}
-                startDate={item.event.startDate}
-                endDate={item.event.endDate}
-                imagen={item.event.frontPage}
-                style={theme.tabBarStyle}
-              />
-            )}
-            numColumns={2}
-          />
-        )}
-      </View>
+              {assigndEvents.length === 0 ? (
+                <View>
+                  <Text style={{ color: theme.textColor, fontFamily: 'Century Gothic Bold', fontSize: 22 }}>
+                    No tienes eventos asignados
+                  </Text>
+                  <TouchableHighlight
+                    underlayColor="#333333"
+                    onPress={() => navigation.navigate("ViewDetails")}>
+                    <Text>Abrir scanner</Text>
+                  </TouchableHighlight>
+                </View>
+              ) : (
+                <FlatList
+                  data={filteredEvents}
+                  keyExtractor={(item) => item.event.id}
+                  renderItem={({ item }) => {
+                    return (
+                      <TouchableHighlight
+                        underlayColor="#333333"
+                        onPress={() => navigation.navigate("ViewDetails", {id: item.event.id,
+                          name: item.event.name,
+                          startDate: item.event.startDate,
+                          endDate: item.event.endDate,
+                          workshops: item.event.workshops,
+                          frontPage: item.event.frontPage,})}
+                      >
+                        <Card
+                          nombre={item.event.name}
+                          startDate={item.event.startDate}
+                          endDate={item.event.endDate}
+                          imagen={item.event.frontPage}
+                          styles={styles.card}
+                        />
+                      </TouchableHighlight>
+                    )
+                  }}
+                  numColumns={2}
+                />
+              )}
+            </View>
     </SafeAreaView>
   );
 };

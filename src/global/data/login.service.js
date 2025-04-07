@@ -4,7 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 
 export const LoginRequest = async (email, password) => {
   try {
-    const response = await api.post("/auth/login", { email, password }, { withCredentials: true, timeout:5000});
+    const response = await api.post("/auth/login", { email, password }, {timeout:5000});
 
     if (response.status === 200 && response.data.type === "SUCCESS") {
       Toast.show({
