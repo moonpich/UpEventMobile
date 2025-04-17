@@ -25,10 +25,12 @@ export const CheckerSearchEvents = () => {
   const [assigndEvents, setAssignedEvents] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredEvents = assigndEvents.filter((event) =>
-    event.nombre.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredEvents = assigndEvents.filter(
+    (item) =>
+      item?.event?.name?.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  
+
+
   const styles = StyleSheet.create({
     containerSearch: {
       flexDirection: "row",
@@ -74,7 +76,7 @@ export const CheckerSearchEvents = () => {
     },
   });
 
-  
+
   useEffect(() => {
     const validUser = partialUser({ user: email });
     if (!validUser.success) {
@@ -108,46 +110,48 @@ export const CheckerSearchEvents = () => {
       </View>
 
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-              {assigndEvents.length === 0 ? (
-                <View>
-                  <Text style={{ color: theme.textColor, fontFamily: 'Century Gothic Bold', fontSize: 22 }}>
-                    No tienes eventos asignados
-                  </Text>
-                  <TouchableHighlight
-                    underlayColor="#333333"
-                    onPress={() => navigation.navigate("ViewDetails")}>
-                    <Text>Abrir scanner</Text>
-                  </TouchableHighlight>
-                </View>
-              ) : (
-                <FlatList
-                  data={filteredEvents}
-                  keyExtractor={(item) => item.event.id}
-                  renderItem={({ item }) => {
-                    return (
-                      <TouchableHighlight
-                        underlayColor="#333333"
-                        onPress={() => navigation.navigate("ViewDetails", {id: item.event.id,
-                          name: item.event.name,
-                          startDate: item.event.startDate,
-                          endDate: item.event.endDate,
-                          workshops: item.event.workshops,
-                          frontPage: item.event.frontPage,})}
-                      >
-                        <Card
-                          nombre={item.event.name}
-                          startDate={item.event.startDate}
-                          endDate={item.event.endDate}
-                          imagen={item.event.frontPage}
-                          styles={styles.card}
-                        />
-                      </TouchableHighlight>
-                    )
-                  }}
-                  numColumns={2}
+        {assigndEvents.length === 0 ? (
+          <View>
+            <Text style={{ color: theme.textColor, fontFamily: 'Century Gothic Bold', fontSize: 22 }}>
+              No tienes eventos asignados
+            </Text>
+            <TouchableHighlight
+              underlayColor="#333333"
+              onPress={() => navigation.navigate("ViewDetails")}>
+              <Text>Abrir scanner</Text>
+            </TouchableHighlight>
+          </View>
+        ) : (
+          <FlatList
+            data={filteredEvents}
+            keyExtractor={(item) => item.event.id}
+            renderItem={({ item }) => (
+              <TouchableHighlight
+                underlayColor="#333333"
+                onPress={() =>
+                  navigation.navigate("ViewDetails", {
+                    id: item.event.id,
+                    name: item.event.name,
+                    startDate: item.event.startDate,
+                    endDate: item.event.endDate,
+                    workshops: item.event.workshops,
+                    frontPage: item.event.frontPage,
+                  })
+                }
+              >
+                <Card
+                  nombre={item.event.name}
+                  startDate={item.event.startDate}
+                  endDate={item.event.endDate}
+                  imagen={item.event.frontPage}
+                  styles={styles.card}
                 />
-              )}
-            </View>
+              </TouchableHighlight>
+            )}
+            numColumns={2}
+          />
+        )}
+      </View>
     </SafeAreaView>
   );
 };

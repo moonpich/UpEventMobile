@@ -167,11 +167,14 @@ export function Event({ route }) {
                     Disponibilidad: {item.capacity}
                   </Text>
                 </View>
-                <TouchableOpacity onPress={() => {
+                <TouchableOpacity onPress={ async () => {
                   if (!yaInscrito) {
-                    registerWorkshop(user.email, id, name, item.id, item.name)
-                      .then(() => setRegisteredWorkshops(prev => [...prev, item.id]));
-                  }
+                    try{
+                      await registerWorkshop(user.email, id, name, item.id, item.name);
+                      setRegisteredWorkshops(prev => [...prev, item.id]);
+                    }catch(error){
+                      console.log("No se registro al taller");
+                    }}
                 }} disabled={yaInscrito}>
                   {yaInscrito ? (
                     <CalendarHeart color={theme.textColor} size={32} style={styles.icon} />

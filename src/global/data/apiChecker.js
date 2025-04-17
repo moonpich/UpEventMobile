@@ -96,6 +96,7 @@ export const validateQr = async (email, idWorkshop) => {
       },)
 
       console.log(response.data.message);
+      console.log(response);
 
       Toast.show({
         type: 'success',
@@ -107,6 +108,7 @@ export const validateQr = async (email, idWorkshop) => {
     }
 
   } catch (error) {
+    console.log("")
     console.log(error.response.data.message);
     console.log("Validar QR error: ", error);
     Toast.show({

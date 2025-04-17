@@ -130,10 +130,10 @@ export function SavedEvent({ route }) {
                 <View style={{flex:1}}>
                   <Text style={styles.tallerText}>{item.name}</Text>
                   <Text style={styles.tallerCupo}>
-                    Disponibilidad: {item.capacity}
+                    Ver QR de acceso
                   </Text>
                 </View>
-                <CalendarHeart color={"#F7EBF9"} size={32} style={styles.icon} />
+                <CalendarHeart color={theme.textColor} size={32} style={styles.icon} />
               </View>
             </TouchableHighlight>
             )}

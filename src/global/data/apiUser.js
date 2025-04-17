@@ -54,6 +54,7 @@ export const registerEvent = async (idEvent, email) => {
     return Toast.show({
       type: "success",
       text1: "Te has registrado correctamente al evento",
+      text2:"Hemos enviado un correo con tu QR de acceso"
     });
   } catch (error) {
     console.log("Error registrandose a evento", error);
@@ -97,14 +98,11 @@ export const registerWorkshop = async (email, idEvent, event, idWorkshop, worksh
       },
     });
 
-    await generarYEnviarQR(email, idEvent, event, idWorkshop, workshop);
-
     Toast.show({
       type: "success",
-      text1: response.data.message,
-      text2:"Hemos enviado un correo con tu QR de acceso"
+      text1: response.data.message
     })
-    return;
+    return true;
   } catch (error) {
     console.log(error);
 
@@ -115,7 +113,7 @@ export const registerWorkshop = async (email, idEvent, event, idWorkshop, worksh
         text2: "Primero debes inscribirte al evento.",
       });
     }
-    return;
+    throw error;
   }
 };
 

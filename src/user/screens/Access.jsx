@@ -28,17 +28,20 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   card: {
-    width: "100%",
+    flex:1,
+    width:"100%",
     backgroundColor: theme.backgroundCard,
     borderRadius: 12,
     padding: 15,
-    overflow: "hidden",
   },
   nameCard: {
     color: theme.textColor,
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily:"Century Gothic Bold",
     marginBottom: 5,
+    marginTop:10,
+    marginBottom:30,
+    textAlign:"center"
   },
   disCard: {
     color: theme.textColor,
@@ -106,14 +109,9 @@ const styles = StyleSheet.create({
       <View style={styles.container}>
         <Image style={styles.logo} source={logoUp()} />
       </View>
-      <Text style={{ fontSize: 16, color: "#b3b3b3" }}>Codigo Acceso</Text>
-      <ScrollView>
+      <Text style={{ fontSize: 22, color: theme.textColor, fontFamily:"Century Gothic Bold", margin: 10 }}>Codigo  de Acceso</Text>
         <View style={styles.card}>
           <Text style={styles.nameCard}>{workshop}</Text>
-          <View style={styles.imageContainer}>
-            {/*<Image style={styles.imgCard} source={imagen} />*/}
-          </View>
-
           <View style={{ alignItems: "center" }}>
             <View
               style={{
@@ -121,11 +119,10 @@ const styles = StyleSheet.create({
                 borderRadius: 12
               }}
             >
-              <QRCode value={JSON.stringify(qrData)} size={200} />
+              <QRCode value={JSON.stringify(qrData)} size={250} />
             </View>
           </View>
         </View>
-      </ScrollView>
     </SafeAreaView>
   );
 }

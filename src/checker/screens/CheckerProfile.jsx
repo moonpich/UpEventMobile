@@ -28,6 +28,8 @@ export const CheckerProfile = () => {
   } = useContext(AuthContext);
   const [info, setInfo] = useState({
     phone: "No hay telefono",
+    name: "",
+    lastname: "",
   });
 
   const styles = StyleSheet.create({
@@ -116,8 +118,8 @@ export const CheckerProfile = () => {
       if (!requestProfile) {
         return;
       }
-      const { phone } = requestProfile;
-      setInfo({ phone: phone });
+      const { phone, name, lastname } = requestProfile;
+      setInfo({ phone, name, lastname });
     };
     request();
   }, []);
@@ -139,7 +141,7 @@ export const CheckerProfile = () => {
         <Image style={styles.logo} source={logoUp()} />
       </View>
       <View style={styles.containerProfile}>
-      <Text style={styles.title}>Mi perfil</Text> 
+        <Text style={styles.title}>Mi perfil</Text>
         <View
           style={{
             justifyContent: "center",
@@ -153,7 +155,7 @@ export const CheckerProfile = () => {
             strokeWidth={0.5}
           />
         </View>
-        <Text style={styles.textName}>{profile.name} {profile.lastname}</Text>
+        <Text style={styles.textName}>{info.name} {info.lastname}</Text>
         <Text style={styles.text}>Nueva contraseña</Text>
         <TextInput style={styles.input} secureTextEntry />
         <Text style={styles.text}>Número telefónico</Text>
