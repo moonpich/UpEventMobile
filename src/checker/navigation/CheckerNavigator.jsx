@@ -27,13 +27,33 @@ function AvailableEventsStack() {
         headerTintColor: theme.textColor,
       }}
     >
-      <Stack.Screen name="CheckerAvailableEvents" component={CheckerAvailableEvents}/>
-      <Stack.Screen name="ViewDetails" component={ViewDetails}/>
+      <Stack.Screen name="CheckerAvailableEvents" component={CheckerAvailableEvents} />
+      <Stack.Screen name="ViewDetails" component={ViewDetails} />
       <Stack.Screen name="Scanner" component={Scanner} />
       <Stack.Screen name="List" component={List} />
     </Stack.Navigator>
   );
 }
+
+function SearchEventsStack() {
+  const { theme } = useTheme();
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: true,
+        headerTitle: "",
+        headerTransparent: true,
+        headerTintColor: theme.textColor,
+      }}
+    >
+      <Stack.Screen name="CheckerSearchEvents" component={CheckerSearchEvents} />
+      <Stack.Screen name="ViewDetails" component={ViewDetails} />
+      <Stack.Screen name="Scanner" component={Scanner} />
+      <Stack.Screen name="List" component={List} />
+    </Stack.Navigator>
+  );
+}
+
 
 export const CheckerNavigator = () => {
   const { theme } = useTheme();
@@ -44,7 +64,7 @@ export const CheckerNavigator = () => {
           let icon;
           if (route.name === "CheckerAvailableEventsStack") {
             icon = <CalendarDays size={size} color={color} />;
-          } else if (route.name === "CheckerSearchEvents") {
+          } else if (route.name === "CheckerSearchEventsStack") {
             icon = <CalendarCheck2 size={size} color={color} />;
           } else if (route.name === "CheckerProfile") {
             icon = <ContactRound size={size} color={color} />;
@@ -62,7 +82,7 @@ export const CheckerNavigator = () => {
         name="CheckerAvailableEventsStack"
         component={AvailableEventsStack}
       />
-      <Tab.Screen name="CheckerSearchEvents" component={CheckerSearchEvents} />
+      <Tab.Screen name="CheckerSearchEventsStack" component={SearchEventsStack} />
       <Tab.Screen name="CheckerProfile" component={CheckerProfile} />
     </Tab.Navigator>
   );

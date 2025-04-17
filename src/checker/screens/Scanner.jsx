@@ -6,13 +6,13 @@ import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 import { validateQr } from "../../global/data/apiChecker";
 
-export default function Scanner() {
+export default function Scanner({route}) {
   const [facing, setFacing] = useState("back");
   const [scanned, setScanned] = useState(false);
   const [isCameraActive, setIsCameraActive] = useState(true);
   const [permission, requestPermission] = useCameraPermissions();
   const navigation = useNavigation();
-  const route = useRoute();
+  const { id } = route.params;
 
   if (!permission) {
     return <View />;
@@ -49,9 +49,8 @@ export default function Scanner() {
           console.log("Datos del qr: ", qrData);
 
           console.log("email ", qrData.email);
-          console.log("workshop", qrData.idWorkshop);
 
-          const response = await validateQr(qrData.email, qrData.idWorkshop);
+          const response = await validateQr(qrData.email, id);
 
 
         } catch (error) {

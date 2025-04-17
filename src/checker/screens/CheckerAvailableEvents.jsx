@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useContext, useState, useCallback } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -7,22 +7,25 @@ import {
   Text,
   FlatList,
   TouchableHighlight,
+  ActivityIndicator
 } from "react-native";
 import { Card } from "../../global/components/Card";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useTheme } from "../../global/context/ThemeContext";
 import { AuthContext } from "../../global/context/AuthContext";
 import { partialUser } from "../../global/schemas/schemas";
 import { AssignedEvents } from "../../global/data/apiChecker";
+
 const logoUp = () => {
   return require("../../../assets/splash.png");
 };
+
 export const CheckerAvailableEvents = () => {
   const [assignedEvents, setAssignedEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const navigation = useNavigation();
-  const {
-    user: { email },
-  } = useContext(AuthContext);
+  const { user: { email } } = useContext(AuthContext);
   const { theme } = useTheme();
   const styles = StyleSheet.create({
     safeArea: {
@@ -46,28 +49,42 @@ export const CheckerAvailableEvents = () => {
     },
   });
 
-  useEffect(() => {
+
+  const fetchAssignedEvents = useCallback(async () => {
+    setLoading(true);
     const validUser = partialUser({ user: email });
+
     if (!validUser.success) {
       setAssignedEvents([]);
+      setLoading(false);
     }
-    const request = async () => {
-      const assignedEventRequest = await AssignedEvents({ email: email });
-      if (assignedEventRequest.length === 0) {
-        setAssignedEvents([]);
-      }
-      setAssignedEvents(assignedEventRequest);
-    };
-    request();
-  }, []);
+
+    try {
+      const assignedEventRequest = await AssignedEvents({ email });
+      setAssignedEvents(assignedEventRequest || []);
+    } catch (error) {
+      console.log("Error al obtener eventos asignados: ", error);
+      setAssignedEvents([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [email]);
+
+  useFocusEffect(
+    useCallback(() => { fetchAssignedEvents(); }, [fetchAssignedEvents])
+  );
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <Image style={styles.logo} source={logoUp()} />
       </View>
       <Text style={styles.text}>Eventos Asignados</Text>
+
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        {assignedEvents.length === 0 ? (
+        {loading ? (
+          <ActivityIndicator size="large" color={theme.textColor} />
+        ) : assignedEvents.length === 0 ? (
           <View>
             <Text style={{ color: theme.textColor, fontFamily: 'Century Gothic Bold', fontSize: 22 }}>
               No tienes eventos asignados
@@ -86,12 +103,14 @@ export const CheckerAvailableEvents = () => {
               return (
                 <TouchableHighlight
                   underlayColor="#333333"
-                  onPress={() => navigation.navigate("ViewDetails", {id: item.event.id,
+                  onPress={() => navigation.navigate("ViewDetails", {
+                    id: item.event.id,
                     name: item.event.name,
                     startDate: item.event.startDate,
                     endDate: item.event.endDate,
                     workshops: item.event.workshops,
-                    frontPage: item.event.frontPage,})}
+                    frontPage: item.event.frontPage,
+                  })}
                 >
                   <Card
                     nombre={item.event.name}
@@ -105,7 +124,8 @@ export const CheckerAvailableEvents = () => {
             }}
             numColumns={2}
           />
-        )}
+        )
+        }
       </View>
     </SafeAreaView>
   );

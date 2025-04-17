@@ -28,10 +28,7 @@ export const AssignedEvents = async ({ email }) => {
 
       return [];
     }
-    console.log(request.data.result);
-
-    const workshops = request.data.result[0].event.workshops;
-    console.log("W",workshops);
+    console.log( "Result", request.data.result);
 
     return request.data.result;
   } catch (error) {

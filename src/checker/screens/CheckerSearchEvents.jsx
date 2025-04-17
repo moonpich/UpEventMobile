@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext, useCallback } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -7,9 +7,10 @@ import {
   Text,
   FlatList,
   TextInput,
-  TouchableHighlight
+  TouchableHighlight, ActivityIndicator
 } from "react-native";
 import { Search } from "lucide-react-native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { Card } from "../../global/components/Card";
 import { useTheme } from "../../global/context/ThemeContext";
 import { AuthContext } from "../../global/context/AuthContext";
@@ -22,8 +23,10 @@ export const CheckerSearchEvents = () => {
   const {
     user: { email },
   } = useContext(AuthContext);
+  const navigation = useNavigation();
   const [assigndEvents, setAssignedEvents] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const filteredEvents = assigndEvents.filter(
     (item) =>
@@ -77,20 +80,30 @@ export const CheckerSearchEvents = () => {
   });
 
 
-  useEffect(() => {
+  const fetchAssignedEvents = useCallback(async () => {
+    setLoading(true);
     const validUser = partialUser({ user: email });
+
     if (!validUser.success) {
       setAssignedEvents([]);
+      setLoading(false);
     }
-    const request = async () => {
-      const assignedEventRequest = await AssignedEvents({ email: email });
-      if (assignedEventRequest.length === 0) {
-        setAssignedEvents([]);
-      }
-      setAssignedEvents(assignedEventRequest);
-    };
-    request();
-  }, []);
+
+    try {
+      const assignedEventRequest = await AssignedEvents({ email });
+      setAssignedEvents(assignedEventRequest || []);
+    } catch (error) {
+      console.log("Error al obtener eventos asignados: ", error);
+      setAssignedEvents([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [email]);
+
+  useFocusEffect(
+    useCallback(() => { fetchAssignedEvents(); }, [fetchAssignedEvents])
+  )
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -110,47 +123,49 @@ export const CheckerSearchEvents = () => {
       </View>
 
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        {assigndEvents.length === 0 ? (
-          <View>
-            <Text style={{ color: theme.textColor, fontFamily: 'Century Gothic Bold', fontSize: 22 }}>
-              No tienes eventos asignados
-            </Text>
-            <TouchableHighlight
-              underlayColor="#333333"
-              onPress={() => navigation.navigate("ViewDetails")}>
-              <Text>Abrir scanner</Text>
-            </TouchableHighlight>
-          </View>
-        ) : (
-          <FlatList
-            data={filteredEvents}
-            keyExtractor={(item) => item.event.id}
-            renderItem={({ item }) => (
+        {loading ? (<ActivityIndicator size="large" color={theme.textColor} />) :
+          assigndEvents.length === 0 ? (
+            <View>
+              <Text style={{ color: theme.textColor, fontFamily: 'Century Gothic Bold', fontSize: 22 }}>
+                No tienes eventos asignados
+              </Text>
               <TouchableHighlight
                 underlayColor="#333333"
-                onPress={() =>
-                  navigation.navigate("ViewDetails", {
-                    id: item.event.id,
-                    name: item.event.name,
-                    startDate: item.event.startDate,
-                    endDate: item.event.endDate,
-                    workshops: item.event.workshops,
-                    frontPage: item.event.frontPage,
-                  })
-                }
-              >
-                <Card
-                  nombre={item.event.name}
-                  startDate={item.event.startDate}
-                  endDate={item.event.endDate}
-                  imagen={item.event.frontPage}
-                  styles={styles.card}
-                />
+                onPress={() => navigation.navigate("ViewDetails")}>
+                <Text>Abrir scanner</Text>
               </TouchableHighlight>
-            )}
-            numColumns={2}
-          />
-        )}
+            </View>
+          ) : (
+            <FlatList
+              data={filteredEvents}
+              keyExtractor={(item) => item.event.id}
+              renderItem={({ item }) => (
+                <TouchableHighlight
+                  underlayColor="#333333"
+                  onPress={() =>
+                    navigation.navigate("ViewDetails", {
+                      id: item.event.id,
+                      name: item.event.name,
+                      startDate: item.event.startDate,
+                      endDate: item.event.endDate,
+                      workshops: item.event.workshops,
+                      frontPage: item.event.frontPage,
+                    })
+                  }
+                >
+                  <Card
+                    nombre={item.event.name}
+                    startDate={item.event.startDate}
+                    endDate={item.event.endDate}
+                    imagen={item.event.frontPage}
+                    styles={styles.card}
+                  />
+                </TouchableHighlight>
+              )}
+              numColumns={2}
+            />
+          )
+        }
       </View>
     </SafeAreaView>
   );

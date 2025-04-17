@@ -62,7 +62,7 @@ export function SaveEvents() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [email]);
 
   useFocusEffect(useCallback(() => { fetchEvents(); }, [fetchEvents]));
 

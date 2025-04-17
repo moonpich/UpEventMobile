@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, Image, View, Text, FlatList, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ScanQrCode, ListChecks } from "lucide-react-native";
+import { ListChecks } from "lucide-react-native";
 import { useTheme } from '../../global/context/ThemeContext';
 import { useNavigation } from "@react-navigation/native";
 
@@ -104,11 +104,6 @@ export function ViewDetails({ route }) {
                         <Text style={styles.nameCard} ellipsizeMode="tail">{name}</Text>
                         <Text style={styles.disCard}>Del {startDate} al {endDate}</Text>
                     </View>
-                    <View>
-                        <TouchableOpacity onPress={() => navigation.navigate("Scanner")}>
-                            <ScanQrCode color={theme.textColor} size={48} style={styles.icon} />
-                        </TouchableOpacity>
-                    </View>
                 </View>
                 <View style={styles.imageContainer}>
                     <Image style={styles.imgCard} source={{ uri: frontPage }} />
@@ -120,6 +115,7 @@ export function ViewDetails({ route }) {
                     style={{ width: "100%" }}
                     renderItem={({ item }) => {
                         return (
+                            <TouchableOpacity onPress={() => navigation.navigate("Scanner", {id: item.id})}>
                             <View style={styles.talleres}>
                                 <View style={{ flex: 1 }}>
                                     <Text style={styles.tallerText}>{item.name}</Text>
@@ -132,6 +128,7 @@ export function ViewDetails({ route }) {
                                     <ListChecks color={theme.textColor} size={32} style={styles.icon} />
                                 </TouchableOpacity>
                             </View>
+                            </TouchableOpacity>
                         )
                     }}
                 />
